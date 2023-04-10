@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoming.mapper.OrderMapper">
+
+    <resultMap id="orderResultMap" type="order">
+        <result property="brandName" column="brand_name" />
+        <result property="orderPeople" column="orderPeople" />
+        <result property="companyName" column="company_name" />
+        <result property="beiZhu" column="beiZhu" />
+
+    </resultMap>
+
+
+    <select id="selectByCondition" resultMap="orderResultMap">
+        SELECT * FROM tb_brand,tb_order
+        <where>
+            tb_brand.brand_name = tb_order.brand_name
+            <if test="order.brandName != null and order.brandName != '' ">
+                and tb_order.brand_name like #{order.brandName}
+            </if>
+
+            <if test="order.orderPeople != null and order.orderPeople != '' ">
+                and orderPeople = #{order.orderPeople}
+            </if>
+            <if test="order.userName != null and order.userName != '' " >
+                and userName = #{order.userName}
+            </if>
+
+
+        </where>
+
+
+
+    </select>
+
+
+
+</mapper>

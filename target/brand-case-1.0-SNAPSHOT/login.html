@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link href="css/login.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="loginDiv" style="height: 350px">
+    <form action="" id="form">
+        <h1 id="loginMsg">LOGIN IN</h1>
+        <div id="errorMsg">用户名或密码不正确</div>
+        <p>用户名:<input id="username" name="username" type="text"></p>
+        <p>密码:<input id="password" name="password" type="password"></p>
+        <p>记住我:<input id="remember" name="remember" type="checkbox"></p>
+        <div id="subDiv">
+            <input type="submit" class="button" value="登录">
+            <input type="reset" class="button" value="重置">&nbsp;&nbsp;&nbsp;
+            <a href="register.html">没有账号？</a>
+        </div>
+    </form>
+
+
+</div>
+
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#loginDiv",
+
+
+
+
+
+    })
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

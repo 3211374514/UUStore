@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+
+    <style>
+        .demo-table-expand {
+            font-size: 0;
+        }
+        .demo-table-expand label {
+            width: 100px;
+            color: #99a9bf;
+        }
+        .demo-table-expand .el-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+        }
+
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div id="app">
+
+    <!--    导航菜单-->
+    <div class="line"></div>
+    <el-menu
+            :default-active="activeIndex2"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="handleSelect"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b">
+        <el-menu-item index="1"><a href="http://localhost:8080/brand-case/brand.html" >商品管理</a></el-menu-item>
+        <el-menu-item index="2"><a href="http://localhost:8080/brand-case/supplier.html" >供应商信息</a></el-menu-item>
+        <el-menu-item index="3" disabled>消息中心</el-menu-item>
+        <el-menu-item index="4"><a href="http://localhost:8080/brand-case/order.html" >订单管理</a></el-menu-item>
+    </el-menu>
+
+    <!--搜索表单-->
+    <el-form :inline="true" :model="order2" class="demo-form-inline">
+
+
+        <el-form-item label="商品名称">
+            <!--            <el-input-->
+            <!--                    placeholder="商品名称"-->
+            <!--                    v-model="brand.brandName"-->
+            <!--                    clearable>-->
+            <!--            </el-input>-->
+            <template>
+                <el-select v-model="order2.brandName" clearable filterable placeholder="商品名称">
+                    <el-option
+                            v-for="item in tableData2"
+                            :key="item.brandName"
+
+                            :value="item.brandName">
+                    </el-option>
+                </el-select>
+            </template>
+        </el-form-item>
+
+        <el-form-item label="客户名称">
+            <el-input
+                    placeholder="客户名称"
+                    v-model="order2.orderPeople"
+                    clearable>
+            </el-input>
+        </el-form-item>
+
+        <el-form-item label="订单处理人">
+            <el-input
+                    placeholder="订单处理人"
+                    v-model="order2.userName"
+                    clearable>
+            </el-input>
+        </el-form-item>
+
+        <el-form-item>
+            <el-button type="primary" @click="onSubmitOrder"icon="el-icon-search">查询</el-button>
+        </el-form-item>
+    </el-form>
+
+    <!--按钮-->
+
+    <el-row>
+
+        <el-button type="primary" plain @click="dialogVisible = true" icon="el-icon-circle-plus">新增订单</el-button>
+
+    </el-row>
+
+<!--添加数据表单弹窗-->
+    <el-dialog
+            title="编辑订单"
+            :visible.sync="dialogVisible"
+            width="30%"
+    >
+
+        <el-form ref="form" :model="order" label-width="80px">
+            <el-form-item label="商品名称">
+                <el-select v-model="order.brandName" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in tableData2"
+                            :key="item.brandName"
+
+                            :value="item.brandName">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="订购个数">
+                <el-input v-model="order.orderSum"></el-input>
+            </el-form-item>
+
+            <el-form-item label="客户名称">
+                <el-input v-model="order.orderPeople"></el-input>
+            </el-form-item>
+
+            <el-form-item label="备注">
+                <el-input type="textarea" v-model="order.beiZhu"></el-input>
+            </el-form-item>
+
+            <el-form-item>
+                <el-button type="primary" @click="updateBrand">提交</el-button>
+                <el-button @click="dialogVisible = false">取消</el-button>
+            </el-form-item>
+        </el-form>
+
+    </el-dialog>
+
+    <!--修改数据表单弹窗-->
+    <el-dialog
+            title="修改订单"
+            :visible.sync="relogVisible"
+            width="30%"
+    >
+
+        <el-form ref="form" :model="order" label-width="80px">
+            <el-form-item label="商品名称">
+                <el-select v-model="order.brandName" filterable placeholder="请选择">
+                    <el-option
+                            v-for="item in tableData2"
+                            :key="item.brandName"
+
+                            :value="item.brandName">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="订购个数">
+                <el-input v-model="order.orderSum"></el-input>
+            </el-form-item>
+
+            <el-form-item label="客户名称">
+                <el-input v-model="order.orderPeople"></el-input>
+            </el-form-item>
+
+            <el-form-item label="备注">
+                <el-input type="textarea" v-model="order.beiZhu"></el-input>
+            </el-form-item>
+
+            <el-form-item>
+                <el-button type="primary" @click="verifyUser1">修改</el-button>
+                <el-button @click="relogVisible = false">取消</el-button>
+            </el-form-item>
+        </el-form>
+
+    </el-dialog>
+
+<!--    订单表格-->
+    <template>
+        <el-table
+                stripe="true"
+                :data="tableData"
+                style="width: 100%"
+                :default-sort = "{prop: 'orderTime', order: 'descending'}"
+                highlight-current-row
+                @current-change="handleCurrentChangeRow"
+                @selection-change="handleSelectionChange"
+        >
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                        <el-form-item label="商品名称">
+                            <span>{{ props.row.brandName}}</span>
+                        </el-form-item>
+                        <el-form-item label="商品描述">
+                            <span>{{ props.row.description }}</span>
+                        </el-form-item>
+                        <el-form-item label="公司名称">
+                            <span>{{ props.row.companyName }}</span>
+                        </el-form-item>
+                        <el-form-item label="订单创建时间">
+                            <i class="el-icon-time"></i>
+                            <span>{{ props.row.orderTime }}</span>
+                        </el-form-item>
+                        <el-form-item label="商品单价">
+                            <span>{{ props.row.price }}</span>
+                        </el-form-item>
+                        <el-form-item label="订购数量">
+                            <span>{{ props.row.orderSum }}</span>
+                        </el-form-item>
+                        <el-form-item label="总金额" >
+                            <i class="el-icon-coin"></i>
+                            <span>{{ props.row.orderSum*props.row.price }}</span>
+                        </el-form-item>
+                        <el-form-item label="客户名称">
+                            <i class="el-icon-s-custom"></i>
+                            <span>{{ props.row.orderPeople }}</span>
+                        </el-form-item>
+                        <el-form-item label="订单处理人">
+                            <i class="el-icon-user"></i>
+                            <span>{{ props.row.userName }}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    sortable
+                    label="订单日期"
+                    prop="orderTime">
+            </el-table-column>
+            <el-table-column
+                    sortable
+                    label="商品名称"
+                    prop="brandName">
+            </el-table-column>
+            <el-table-column
+                    sortable
+                    label="数量"
+                    prop="orderSum">
+            </el-table-column>
+            <el-table-column
+                    label="备注"
+                    prop="beiZhu">
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    >
+                <el-row>
+                    <el-button type="primary" icon="el-icon-edit" @click="echo" circle></el-button>
+                    <el-button type="danger" icon="el-icon-delete"@click="deleteByOrderId1" circle></el-button>
+                </el-row>
+
+            </el-table-column>
+        </el-table>
+    </template>
+
+
+
+
+
+
+</div>
+
+<script src="js/vue.js"></script>
+<script src="element-ui2/lib/index.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="element-ui2/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el:"#app",
+
+        mounted(){
+
+            this.selectAll();
+            this.selectAllTrue();
+            //this.restaurants = this.selectAllTrue();
+        },
+
+        methods:{
+
+
+            onSubmitOrder() {
+                console.log(this.order2);
+                this.selectByCondition();
+            },
+
+
+            //验证session
+            verifyUser1(){
+                var _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/order/verifyUser",
+                    data:_this.order
+                }).then(function (resp){
+                    if (resp.data == "success"){
+                        _this.update();
+
+                    }else{
+                        _this.$confirm('您没有操作权限！原因：只有对应的订单处理人可以操作，此条订单记录的对应订单处理人为“'
+                            +_this.order.userName+'"', '操作出错!', {
+                            confirmButtonText: '死不悔改？',
+                            cancelButtonText: '悬崖勒马！',
+                            type: 'warning',
+                            center: true
+                        }).then(() => {
+                            location.href="http://localhost:8080/brand-case/result.html"
+                        }).catch(() => {
+                            this.$message({
+                                type: 'info',
+                                message: '已取消删除'
+                            });
+                        });
+
+                    }
+                })
+            },
+            verifyUser2(){
+                var _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/order/verifyUser",
+                    data:_this.order
+                }).then(function (resp){
+                    if (resp.data == "success"){
+                        _this.deleteByOrderId2();
+
+                    }else{
+                        // _this.$alert('您没有操作权限！原因：只有对应的订单处理人可以操作，此条订单记录的对应订单处理人为“'
+                        //     +_this.order.userName+'"', '操作出错!', {
+                        //     confirmButtonText: '死不悔改？',
+                        //     callback: action => {
+                        //         this.$message({
+                        //             type: 'info',
+                        //             message: `action: ${ action }`
+                        //         });
+                        //     }
+                        // });
+                        _this.$confirm('您没有操作权限！原因：只有对应的订单处理人可以操作，此条订单记录的对应订单处理人为“'
+                            +_this.order.userName+'"', '操作出错!', {
+                            confirmButtonText: '死不悔改？',
+                            cancelButtonText: '悬崖勒马',
+                            type: 'warning',
+                            center: true
+                        }).then(() => {
+                            location.href="http://localhost:8080/brand-case/result.html"
+                        }).catch(() => {
+                            this.$message({
+                                type: 'info',
+                                message: '已取消删除'
+                            });
+                        });
+                        //location.href="http://localhost:8080/brand-case/result.html"
+                    }
+                })
+            },
+
+            //删除数据
+            deleteByOrderId1(){
+                var _this = this;
+                this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    _this.verifyUser2()
+
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+
+            },
+            deleteByOrderId2(){
+                var _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/order/deleteByOrderId",
+                    data:_this.order
+                }).then(function (resp){
+                    if (resp.data == "success"){
+
+                        _this.selectAll();
+
+                        _this.$message({
+                            showClose: true,
+                            message: '删除成功！',
+                            type: 'success'
+                        });
+
+
+                    }
+                })
+            },
+
+            //修改数据
+            update(){
+                var _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/order/update",
+                    data:_this.order
+                }).then(function (resp){
+                    if (resp.data == "success"){
+                        //添加成功
+                        //关闭窗口
+                        _this.relogVisible = false;
+                        //重查
+                        _this.selectAll();
+
+                        _this.$message({
+                            showClose: true,
+                            message: '修改成功！',
+                            type: 'success'
+                        });
+
+
+                    }
+                })
+            },
+
+            //选中获得这一行的数据
+            handleCurrentChangeRow(val){
+                this.currentRow = val;
+                //alert("第一"+this.currentRow.id);
+                this.order = this.currentRow;
+                //alert(this.order.orderId);
+                ///alert("第三"+this.brand.id);
+            },
+            //数据回显
+            echo(){
+                this.relogVisible = true;
+                // alert("第二"+this.currentRow.id);
+                //this.relogVisible = true;
+
+            },
+
+            //添加订单
+            addOrder(){
+                //console.log(this.brand);
+
+                var _this = this;
+
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/order/add",
+                    data:_this.order
+                }).then(function (resp){
+                    if (resp.data == "success"){
+                        //添加成功
+                        //关闭窗口
+                        _this.dialogVisible = false;
+                        //重查
+                        _this.selectAll();
+
+                        _this.$message({
+                            showClose: true,
+                            message: '添加成功！',
+                            type: 'success'
+                        });
+
+
+                    }
+                })
+
+
+            },
+
+            //
+            updateBrand(){
+              var _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/order/selectOrdered",
+                    data:_this.order
+                }).then(function (resp){
+                        if (resp.data == "success") {
+                            _this.addOrder();
+                        }
+                        else{
+                            _this.$message({
+                                showClose: true,
+                                message: '添加失败！'+_this.order.brandName+'库存不足！',
+                                type: 'error'
+                            });
+                        }
+                });
+
+
+            },
+
+
+
+            //查询tb_oreder表全部数据
+            selectAll(){
+                var  _this = this;
+                axios({
+                    method:"get",
+                    url:"http://localhost:8080/brand-case/order/selectAll"
+                }).then(function (resp){
+                    _this.tableData = resp.data;
+                    //_this.sumPrice = resp.data.price*resp.data.orderSum;
+                })
+
+            },
+
+            //条件查询
+            selectByCondition(){
+                var  _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/order/selectByCondition",
+                    data:this.order2
+                }).then(function (resp){
+                    _this.tableData = resp.data;
+                    //_this.sumPrice = resp.data.price*resp.data.orderSum;
+                })
+
+            },
+
+            //查询tb_brand表
+            selectAllTrue(){
+                var  _this = this;
+                axios({
+                    method:"get",
+                    url:"http://localhost:8080/brand-case/brand/selectAll"
+                }).then(function (resp){
+                    _this.tableData2 = resp.data;
+                })
+            },
+
+
+        },
+
+
+        data(){
+            return{
+
+                goodsLast:0,
+
+                userSession:[],
+
+
+                activeIndex2: '4',
+                tableData2:[],
+
+                //弹窗
+                dialogVisible:false,
+                relogVisible:false,
+
+
+                order:{
+                    orderTime:'',
+                    brandName:'',
+                    orderSum:'',
+                    orderPeople:'',
+                    userName:'',
+                    beiZhu:'',
+                    orderId:''
+
+                },
+                order2:{
+                    orderTime:'',
+                    brandName:'',
+                    orderSum:'',
+                    orderPeople:'',
+                    userName:'',
+                    beiZhu:'',
+                    orderId:''
+
+                },
+
+
+                value:'',
+
+
+                tableData: [{
+                    id: '12987122',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987123',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987125',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }, {
+                    id: '12987126',
+                    name: '好滋好味鸡蛋仔',
+                    category: '江浙小吃、小吃零食',
+                    desc: '荷兰优质淡奶，奶香浓而不腻',
+                    address: '上海市普陀区真北路',
+                    shop: '王小虎夫妻店',
+                    shopId: '10333'
+                }]
+
+
+
+
+            }
+        }
+
+
+
+
+
+
+    })
+
+
+</script>
+
+</body>
+</html>

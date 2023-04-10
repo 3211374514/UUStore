@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>供货商信息</title>
+    <style>
+        .my-label {
+            background: #E1F3D8;
+        }
+
+        .my-content {
+            background: #FDE2E2;
+        }
+    </style>
+    <style>
+        .text {
+            font-size: 14px;
+        }
+
+        .item {
+            margin-bottom: 18px;
+        }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+        }
+        .clearfix:after {
+            clear: both
+        }
+
+        .box-card {
+            width: 480px;
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+
+<div id="app">
+
+
+    <!--    导航菜单-->
+    <div class="line"></div>
+    <el-menu
+            :default-active="activeIndex2"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="handleSelect"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b">
+        <el-menu-item index="1"><a href="http://localhost:8080/brand-case/brand.html" >商品管理</a></el-menu-item>
+        <el-menu-item index="2"><a href="http://localhost:8080/brand-case/supplier.html" >供应商信息</a></el-menu-item>
+        <el-menu-item index="3" disabled>消息中心</el-menu-item>
+        <el-menu-item index="4"><a href="http://localhost:8080/brand-case/order.html" >订单管理</a></el-menu-item>
+    </el-menu>
+
+    <!--按钮-->
+
+    <el-row>
+
+        <el-button type="primary" plain @click="dialogVisible = true" icon="el-icon-circle-plus">新增供应商</el-button>
+
+    </el-row>
+
+    <!--添加数据表单弹窗-->
+    <el-dialog
+            title="编辑订单"
+            :visible.sync="dialogVisible"
+            width="30%"
+    >
+
+        <el-form ref="form" :model="supp" label-width="80px">
+
+            <el-form-item label="供应商">
+                <el-input v-model="supp.companyName"></el-input>
+            </el-form-item>
+
+            <el-form-item label="电话">
+                <el-input v-model="supp.phone"></el-input>
+            </el-form-item>
+
+            <el-form-item label="省份">
+                <el-input v-model="supp.province"></el-input>
+            </el-form-item>
+
+            <el-form-item label="城市">
+                <el-input v-model="supp.city"></el-input>
+            </el-form-item>
+
+            <el-form-item label="详细地址">
+                <el-input v-model="supp.address"></el-input>
+            </el-form-item>
+
+            <el-form-item label="邮编">
+                <el-input v-model="supp.zip"></el-input>
+            </el-form-item>
+
+            <el-form-item label="备注">
+                <el-input type="textarea" v-model="supp.beiZhu"></el-input>
+            </el-form-item>
+
+            <el-form-item>
+                <el-button type="primary" @click="addSupp">提交</el-button>
+                <el-button @click="dialogVisible = false">取消</el-button>
+            </el-form-item>
+        </el-form>
+
+    </el-dialog>
+
+
+<!--    表格-->
+    <template>
+        <el-table
+                :data="tableDataSupp"
+                style="width: 100%">
+<!--            <el-table-column-->
+<!--                    prop="date"-->
+<!--                    label="日期"-->
+<!--                    width="150">-->
+<!--            </el-table-column>-->
+            <el-table-column
+                    type="index"
+                    width="50">
+            </el-table-column>
+            <el-table-column label="供货商信息">
+                <el-table-column
+                        prop="companyName"
+                        label="店铺名"
+                        >
+                </el-table-column>
+                <el-table-column
+                        prop="phone"
+                        label="联系电话"
+                >
+                </el-table-column>
+                <el-table-column label="地址">
+                    <el-table-column
+                            prop="province"
+                            label="省份"
+                            >
+                    </el-table-column>
+                    <el-table-column
+                            prop="city"
+                            label="市区"
+                            >
+                    </el-table-column>
+                    <el-table-column
+                            prop="address"
+                            label="地址"
+                            >
+                    </el-table-column>
+                    <el-table-column
+                            prop="zip"
+                            label="邮编"
+                            >
+                    </el-table-column>
+                </el-table-column>
+                <el-table-column
+                        prop="beiZhu"
+                        label="备注"
+                        >
+                </el-table-column>
+            </el-table-column>
+        </el-table>
+    </template>
+
+
+
+</div>
+
+    <script src="js/vue.js"></script>
+    <script src="element-ui2/lib/index.js"></script>
+    <script src="js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="element-ui2/lib/theme-chalk/index.css">
+
+    <script>
+        new Vue({
+            el:"#app",
+
+            mounted(){
+
+                this.selectAll();
+                //this.selectAllTrue();
+                //this.restaurants = this.selectAllTrue();
+            },
+
+            methods:{
+
+                //添加
+                addSupp(){
+                    //console.log(this.brand);
+
+                    var _this = this;
+
+                    axios({
+                        method:"post",
+                        url:"http://localhost:8080/brand-case/supp/add",
+                        data:_this.supp
+                    }).then(function (resp){
+                        if (resp.data == "success"){
+                            //添加成功
+                            //关闭窗口
+                            _this.dialogVisible = false;
+                            //重查
+                            _this.selectAll();
+
+                            _this.$message({
+                                showClose: true,
+                                message: '添加成功！',
+                                type: 'success'
+                            });
+
+
+                        }
+                    })
+
+
+                },
+
+                handleChange(val) {
+                    console.log(val);
+                },
+
+                //查询tb_supp表全部数据
+                selectAll(){
+                    var  _this = this;
+                    axios({
+                        method:"get",
+                        url:"http://localhost:8080/brand-case/supp/selectAll"
+                    }).then(function (resp){
+                        _this.tableDataSupp = resp.data;
+                        //_this.sumPrice = resp.data.price*resp.data.orderSum;
+                    })
+                    console.log(this.tableDataSupp);
+                },
+
+            },
+
+            data(){
+                return{
+
+                    dialogVisible : false,
+
+                    drawer: false,
+
+                    activeNames: ['1'],
+
+                    //表
+                    size:'',
+
+                    supp:{
+                        companyName:'',
+                        phone:'',
+                        province:'',
+                        city:'',
+                        address:'',
+                        zip:'',
+                        beiZhu:'',
+                        suppId:''
+                    },
+
+                    tableDataSupp: []
+
+
+
+                }
+
+
+            }
+
+
+
+        })
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+</body>
+</html>

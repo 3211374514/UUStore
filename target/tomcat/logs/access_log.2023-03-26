@@ -1,0 +1,14 @@
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:17 +0800] "GET /brand-case HTTP/1.1" 302 - http-bio-8080-exec-2 0
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:18 +0800] "GET /brand-case/ HTTP/1.1" 200 931 http-bio-8080-exec-3 85
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:18 +0800] "GET /brand-case/css/login.css HTTP/1.1" 200 1932 http-bio-8080-exec-4 30
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:18 +0800] "GET /brand-case/imgs/Desert2.jpg HTTP/1.1" 200 4884031 http-bio-8080-exec-5 34
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:18 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-6 0
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "POST /brand-case/loginServlet HTTP/1.1" 302 - http-bio-8080-exec-7 493
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "GET /brand-case/brand.html HTTP/1.1" 200 21785 http-bio-8080-exec-8 12
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "GET /brand-case/element-ui2/lib/theme-chalk/index.css HTTP/1.1" 200 238984 http-bio-8080-exec-9 2
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "GET /brand-case/js/axios-0.18.0.js HTTP/1.1" 200 12948 http-bio-8080-exec-9 29
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "GET /brand-case/js/vue.js HTTP/1.1" 200 341462 http-bio-8080-exec-1 56
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "GET /brand-case/element-ui2/lib/index.js HTTP/1.1" 200 588264 http-bio-8080-exec-10 122
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "GET /brand-case/element-ui2/lib/theme-chalk/fonts/element-icons.woff HTTP/1.1" 200 28200 http-bio-8080-exec-9 8
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "GET /brand-case/brand/selectAll HTTP/1.1" 200 694 http-bio-8080-exec-1 57
+0:0:0:0:0:0:0:1 - - [26/Mar/2023:21:35:23 +0800] "POST /brand-case/brand/selectByPageAndCondition?currentPage=1&pageSize=5 HTTP/1.1" 200 718 http-bio-8080-exec-10 101
