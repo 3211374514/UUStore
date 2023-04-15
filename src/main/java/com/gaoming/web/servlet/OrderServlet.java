@@ -114,10 +114,10 @@ public class OrderServlet extends BaseServlet{
         BufferedReader br = request.getReader();
         String params = br.readLine();
 
-        //2.转为Brand对象
+        //2.转为Order对象
         Order order = JSON.parseObject(params, Order.class);
 
-        //调用add
+        //调用deleteByOrderId
         orderService.deleteByOrderId(order.getOrderId());
         //成功表示
         response.getWriter().write("success");
@@ -136,9 +136,9 @@ public class OrderServlet extends BaseServlet{
         //调用
        //List<Order> orders1 = orderService.selectBrandNameByCondition(order);
         //System.out.println(brandName);
-        System.out.println("这是一个句子");
+        //System.out.println("这是一个句子");
         List<Order> orders = orderService.selectByCondition(order);
-        System.out.println(orders);
+        //System.out.println(orders);
 
         //成功表示
         //response.getWriter().write("success");
@@ -153,6 +153,13 @@ public class OrderServlet extends BaseServlet{
 
     }
 
+    /**
+     * 查找商品剩余库存
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void selectOrdered(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 

@@ -19,7 +19,7 @@ public class CheckCodeUtil {
     public static void main(String[] args) throws IOException {
 
 
-        OutputStream fos = new FileOutputStream("G://a.jpg");
+        OutputStream fos = new FileOutputStream("D:\\code-backup\\brand-case\\src\\main\\webapp\\imgs\\a.jpg");
         String checkCode = CheckCodeUtil.outputVerifyImage(100, 50, fos, 4);
         System.out.println(checkCode);
 
