@@ -25,8 +25,8 @@
         <p>Password:<input id="password" name="password" value="${cookie.password.value}" type="password"></p>
         <p>Remember:<input id="remember" name="remember" value="1" type="checkbox"></p>
         <div id="subDiv">
-            <input type="submit" class="button" value="login up">
-            <input type="reset" class="button" value="reset">&nbsp;&nbsp;&nbsp;
+            <input type="submit" class="button" value="login up" name="login1">
+            <input type="submit" class="button" value="reset" name="reset1">
             <a href="register.jsp">没有账号？</a>
         </div>
     </form>
