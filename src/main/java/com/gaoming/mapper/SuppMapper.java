@@ -22,7 +22,7 @@ public interface SuppMapper {
      * 添加数据
      * @param supp
      */
-    @Insert("insert into tb_supp values(#{companyName},#{phone},#{province},#{city},#{address},null,#{zip},#{beiZhu})")
+    @Insert("insert into tb_supp values(#null,#{companyName},#{phone},#{province},#{city},#{address},#{zip},#{beiZhu})")
     void add(Supp supp);
 
 
