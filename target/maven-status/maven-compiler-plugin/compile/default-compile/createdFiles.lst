@@ -1,14 +1,18 @@
 com\gaoming\pojo\PageBean.class
 com\gaoming\web\servlet\CheckCodeServlet.class
 com\gaoming\web\servlet\OrderServlet.class
+com\gaoming\mapper\CustomerMapper.class
 com\gaoming\util\SqlSessionFactoryUtils.class
 com\gaoming\web\servlet\old\SelectAllServlet.class
 com\gaoming\mapper\BrandMapper.class
+com\gaoming\service_20211015_114634\impl\CustomerServiceImpl.class
 com\gaoming\web\servlet\old\RegisterServlet.class
 com\gaoming\mapper\OrderMapper.class
 com\gaoming\service_20211015_114634\impl\UserServletImpl.class
 com\gaoming\web\servlet\UserServlet.class
+com\gaoming\web\servlet\old\UserLoginServlet.class
 com\gaoming\service_20211015_114634\impl\OrderServletImpl.class
+com\gaoming\service_20211015_114634\CustomerService.class
 com\gaoming\pojo\Brand.class
 com\gaoming\mapper\UserMapper.class
 com\gaoming\web\servlet\old\LoginServlet.class
@@ -27,5 +31,6 @@ com\gaoming\service_20211015_114634\BrandService.class
 com\gaoming\web\servlet\BrandServlet.class
 com\gaoming\web\servlet\BaseServlet.class
 com\gaoming\web\servlet\old\AddServlet.class
+com\gaoming\pojo\Customer.class
 com\gaoming\pojo\Order.class
 com\gaoming\service_20211015_114634\impl\BrandServiceImpl.class

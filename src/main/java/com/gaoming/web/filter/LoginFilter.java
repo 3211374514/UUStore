@@ -13,7 +13,7 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         //判断资源是否和登录注册相关
-        String[] urls = {"/login.jsp","/imgs/","/css/","/loginServlet","/register.jsp","/registerServlet","/checkCodeServlet"};
+        String[] urls = {"/login.jsp","/imgs/","/css/","/userLoginServlet","/loginServlet","/register.jsp","/registerServlet","/checkCodeServlet"};
         //判断
         String url = req.getRequestURL().toString();
 
@@ -38,6 +38,7 @@ public class LoginFilter implements Filter {
         }else {
             //没有登录
             req.setAttribute("login_msg","您尚未登陆！");
+
             req.getRequestDispatcher("/login.jsp").forward(request,response);
 
         }
