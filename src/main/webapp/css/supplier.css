@@ -5,10 +5,10 @@
 html {
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin: 0;
     padding: 0;
-    background: url(../imgs/f5.jpg) no-repeat 0px 0px;
+    background: url(../imgs/reg01.jpg) no-repeat 0px 0px;
     background-repeat: no-repeat;
     background-size: cover;
     /*-moz-background-size: contain;*/
