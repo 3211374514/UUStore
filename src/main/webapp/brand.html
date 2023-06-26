@@ -39,7 +39,7 @@
     <!--搜索表单-->
     <el-form :inline="true" :model="brand2" class="demo-form-inline">
 
-        <el-form-item label="当前状态">
+        <el-form-item label="当前状态"  style="color: #66b1ff">
             <el-select v-model="brand2.status"  placeholder="当前状态">
                 <el-option label="在售" value="1"></el-option>
                 <el-option label="售罄" value="0"></el-option>
@@ -47,7 +47,7 @@
             </el-select>
         </el-form-item>
 
-        <el-form-item label="商品名称">
+        <el-form-item label="商品名称" style="color: #5daf34">
 <!--            <el-input-->
 <!--                    placeholder="商品名称"-->
 <!--                    v-model="brand.brandName"-->
@@ -65,7 +65,7 @@
             </template>
         </el-form-item>
 
-        <el-form-item label="供应商">
+        <el-form-item label="供应商" style="color: #5daf34">
             <el-input
                     placeholder="供应商"
                     v-model="brand2.companyName"
@@ -231,6 +231,12 @@
                     align="center"
                     label="当前状态">
 
+                <template slot-scope="scope">
+
+                    <div :style="{ color: scope.row.statusStr=='在售' ? 'green' : 'red' }">
+                        {{ scope.row.statusStr }}
+                    </div>
+                </template>
 
             </el-table-column>
 
