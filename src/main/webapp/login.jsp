@@ -25,9 +25,9 @@
         <p>密码:<input id="password" name="password" value="${cookie.password.value}" type="password"></p>
         <p>记住我:<input id="remember" name="remember" value="1" type="checkbox"></p>
         <div id="subDiv">
-            <input type="submit" class="button" value="登录">
 <%--            <input type="reset" class="button" value="reset">&nbsp;&nbsp;&nbsp;--%>
 <%--            <a href="register.jsp">没有账号？</a>--%>
+            <input type="submit" class="button" value="登录">
         </div>
     </form>
 </div>
