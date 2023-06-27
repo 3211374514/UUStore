@@ -16,9 +16,13 @@
 </head>
 
 <body>
+
 <div id="loginDiv" style="height: 350px">
     <form action="/brand-case/userLoginServlet" id="form" method="post">
         <h1 id="loginMsg">用户登录</h1>
+        <div id="p2">
+            <p >管理员登录<a href="login.jsp">点击这里？</a></p>
+        </div>
         <div id="errorMsg">${login_msg} ${register_msg}</div>
         <p>账号:<input id="username" name="username" value="${cookie.c_username.value}" type="text"></p>
 
