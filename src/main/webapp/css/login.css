@@ -38,15 +38,10 @@ body {
     color: red;
 }
 
-#p {
+p {
     margin-top: 30px;
     margin-left: 20px;
     color: azure;
-}
-#p2 {
-    margin-top: 30px;
-    margin-left: 20px;
-    color: #ad2fcd;
 }
 
 
