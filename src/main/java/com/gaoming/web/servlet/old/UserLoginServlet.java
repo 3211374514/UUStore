@@ -35,8 +35,8 @@ public class UserLoginServlet extends HttpServlet{
             if("1".equals(remember)){
                 //勾选了记住我
                 //1.创建cookie
-                Cookie c_username = new Cookie("username",username);
-                Cookie c_password = new Cookie("password",password);
+                Cookie c_username = new Cookie("c_username",username);
+                Cookie c_password = new Cookie("p_assword",password);
                 //2.设置Cookie存活时间
                 c_username.setMaxAge(60*60*24*7);
                 c_password.setMaxAge(60*60*24*7);
@@ -50,12 +50,12 @@ public class UserLoginServlet extends HttpServlet{
             System.out.println(customer);
 
             String contextPath = request.getContextPath();
-            response.sendRedirect(contextPath+"/register.html");//测试用，后面需要换
+            response.sendRedirect(contextPath+"/mainpage.html");//测试用，后面需要换
         }
         else {
             //登陆失败
             request.setAttribute("login_msg","用户名或密码错误");
-            request.getRequestDispatcher("/userlogin.jsp").forward(request,response);//用户登录页面，也需要改
+            request.getRequestDispatcher("/userlogin.jsp").forward(request,response);//顾客登录页面，也需要改
         }
 
     }

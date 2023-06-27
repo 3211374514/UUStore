@@ -17,12 +17,12 @@
 
 <body>
 <div id="loginDiv" style="height: 350px">
-    <form action="/brand-case/loginServlet" id="form" method="post">
+    <form action="/brand-case/userLoginServlet" id="form" method="post">
         <h1 id="loginMsg">用户登录</h1>
         <div id="errorMsg">${login_msg} ${register_msg}</div>
-        <p>账号:<input id="username" name="username" value="${cookie.username.value}" type="text"></p>
+        <p>账号:<input id="username" name="username" value="${cookie.c_username.value}" type="text"></p>
 
-        <p>密码:<input id="password" name="password" value="${cookie.password.value}" type="password"></p>
+        <p>密码:<input id="password" name="password" value="${cookie.c_password.value}" type="password"></p>
         <p>记住我:<input id="remember" name="remember" value="1" type="checkbox"></p>
         <div id="subDiv">
             <input type="submit" class="button" value="登录">

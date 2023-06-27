@@ -1,7 +1,10 @@
 package com.gaoming.web.servlet.old;
 
+import com.gaoming.pojo.Customer;
 import com.gaoming.pojo.User;
+import com.gaoming.service_20211015_114634.CustomerService;
 import com.gaoming.service_20211015_114634.UserService;
+import com.gaoming.service_20211015_114634.impl.CustomerServiceImpl;
 import com.gaoming.service_20211015_114634.impl.UserServletImpl;
 
 import javax.servlet.ServletException;
@@ -12,8 +15,8 @@ import java.io.IOException;
 @WebServlet("/registerServlet")
 public class RegisterServlet extends HttpServlet {
 
-    private UserService userService = new UserServletImpl();
-
+//    private UserService userService = new UserServletImpl();
+    private CustomerService customerService = new CustomerServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,9 +24,13 @@ public class RegisterServlet extends HttpServlet {
         //1.获取用户名 密码
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
+//        User user = new User();
+//        user.setUsername(username);
+//        user.setPassword(password);
+        Customer customer = new Customer();
+        customer.setUsername(username);
+        customer.setPassword(password);
+
         //获取用户输入的验证码
         String checkCode = request.getParameter("checkCode");
         //获取生成的验证码
@@ -37,12 +44,13 @@ public class RegisterServlet extends HttpServlet {
         }
 
         //2.注册
-        boolean flag = userService.register(user);
+//        boolean flag = userService.register(user);
+        boolean flag = customerService.register(customer);
 
         //3.判断
         if(flag){
             request.setAttribute("register_msg","注册成功，请登录");
-            request.getRequestDispatcher("/login.jsp").forward(request,response);
+            request.getRequestDispatcher("/userlogin.jsp").forward(request,response);
 
 
         }else{
