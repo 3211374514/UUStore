@@ -19,5 +19,15 @@ public interface CustomerService {
          */
         boolean register(Customer customer);
 
+        /**
+         * 修改密码
+         * @param username
+         * @param password
+         * @param repassword
+         * @return
+         */
+        boolean update(String username,String password, String repassword);
+
+
 
 }

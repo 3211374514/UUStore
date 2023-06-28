@@ -1,9 +1,7 @@
 package com.gaoming.mapper;
 
 import com.gaoming.pojo.Customer;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 public interface CustomerMapper {
     /**
@@ -29,4 +27,13 @@ public interface CustomerMapper {
      */
     @Insert("insert into tb_customer values(null,#{username},#{password})")
     void add(Customer customer);
+
+    /**
+     * 修改密码
+     * @param username
+     * @param password
+     * @param repassword
+     */
+    @Update("update tb_customer set password = #{repassword} where username = #{username} and password = #{password}")
+    void update(@Param("username")String username, @Param("password")String password,@Param("repassword") String repassword);
 }

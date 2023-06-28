@@ -22,7 +22,7 @@ body {
     height: 100%;
 }
 
-#loginDiv {
+#resetDiv {
     width: 37%;
     display: flex;
     justify-content: center;
@@ -45,16 +45,6 @@ p {
 }
 
 
-#remember{
-    margin-left: 15px;
-    border-radius: 5px;
-    border-style: hidden;
-    background-color: rgba(216, 191, 216, 0.5);
-    outline: none;
-    padding-left: 10px;
-    height: 20px;
-    width: 20px;
-}
 #username{
     width: 200px;
     margin-left: 15px;
@@ -103,11 +93,12 @@ p {
     text-align: center;
     margin-top: 30px;
 }
-#loginMsg{
-    text-align: center;
-    color: aliceblue;
-}
+
 #errorMsg{
     text-align: center;
     color:red;
+}
+#resetMsg{
+    text-align: center;
+    color: aliceblue;
 }
