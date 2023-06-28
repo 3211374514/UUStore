@@ -16,16 +16,16 @@
 </head>
 
 <body>
-<div id="loginDiv" style="height: 350px">
-  <form action="/brand-case/loginServlet" id="form" method="post">
-    <h1 id="loginMsg">CHANGE</h1>
-    <div id="errorMsg">${login_msg} ${register_msg}</div>
-    <p>Username:<input id="username" name="username" value="${cookie.username.value}" type="text"></p>
+<div id="resetDiv" style="height: 350px">
+  <form action="/brand-case/change/update" id="form" method="post">
+    <h1 id="resetMsg">修改密码</h1>
+    <div id="errorMsg">${reset_msg}</div>
+    <p>用户名:<input id="username" name="username" value="${cookie.c_username.value}" type="text"></p>
 
-    <p>Password:<input id="password" name="password" value="${cookie.password.value}" type="password"></p>
-    <p>Repassword:<input id="password" name="repassword" value="${cookie.password.value}" type="password"></p>
+    <p>密码:<input id="password" name="password" value="" type="password"></p>
+    <p>重置密码:<input id="repassword" name="repassword" value="" type="password"></p>
     <div id="subDiv">
-      <input type="submit" class="button" value="change" name="change1">
+      <input type="submit" class="button" value="修改" name="change1">
 
     </div>
   </form>

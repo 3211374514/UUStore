@@ -28,6 +28,7 @@
         <p>记住我:<input id="remember" name="remember" value="1" type="checkbox"></p>
         <div id="subDiv">
             <input type="submit" class="button" value="登录">
+            <a href="change.jsp">修改密码</a>
 
 <%--            <input type="reset" class="button" value="reset">&nbsp;&nbsp;&nbsp;--%>
             <a href="register.jsp">没有账号？</a>
