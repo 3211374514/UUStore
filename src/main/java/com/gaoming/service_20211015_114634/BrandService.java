@@ -9,6 +9,10 @@ public interface BrandService {
 
     //查询所有
     List<Brand> selectAll();
+    //PageBean<Brand> selectAll();
+
+    //mainpage查询所有
+    PageBean<Brand> selectAll2(Brand brand);
 
     //添加数据
     void add(Brand brand);

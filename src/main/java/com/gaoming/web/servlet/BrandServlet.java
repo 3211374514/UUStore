@@ -44,6 +44,30 @@ public class BrandServlet extends BaseServlet{
         response.getWriter().write(jsonString);
     }
 
+
+    public void selectAll2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //获取查询条件对象
+        //1.接受数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();
+        //2.转为brand对象
+        Brand brand = JSON.parseObject(params, Brand.class);
+
+
+        //2.调用service查询
+        //PageBean<Brand> pageBean = brandService.selectByPageAndCondition(currentPage, pageSize,brand);
+        PageBean<Brand> pageBean1 = brandService.selectAll2(brand);
+        System.out.println(brand);
+
+        //2.转为JSON
+        String jsonString = JSON.toJSONString(pageBean1);
+
+        //3.写数据
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+
     /**
      * 添加数据
      * @param request

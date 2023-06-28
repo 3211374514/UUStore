@@ -108,22 +108,42 @@
 <!--            size="big">-->
 <!--    </el-input>-->
 
-    <el-row type="flex" justify="center" align="middle" >
-
-        <el-col :span="8" v-for="(o, index) in 4" :key="o" :offset="index > 0 ? 2 : 0">
-            <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                <img src="./imgs/555.jpg" class="image">
-                <div style="padding: 14px;">
-                    <span>好吃的汉堡</span>
-                    <div class="bottom clearfix">
-                        <time class="time">{{ currentDate }}</time>
-                        <el-button type="text" class="button">查看详情</el-button>
-<!--                        <el-button type="danger" round>危险按钮</el-button>-->
-                    </div>
+<!--    商品信息卡片   Math.ceil(totalCount/4)-->
+    <el-row type="flex" v-for="(s,totalIndex) in Math.ceil(totalCount/4)" :key="s" justify="center" align="middle" style="flex-direction: row;">
+<template v-if="lossCount != 0 && s == Math.ceil(totalCount/4)">
+    <el-col :span="5" v-for="(o, index) in lossCount" :key="o" :offset="index > 0 ? 2 : 0" >
+        <el-card :body-style="{ padding: '0px' }" shadow="hover">
+            <img src="./imgs/555.jpg" class="image">
+            <div style="padding: 14px;">
+                <span>好吃的汉堡</span>
+                <div class="bottom clearfix">
+                    <time class="time">{{ currentDate }}</time>
+                    <el-button type="text" class="button">查看详情</el-button>
+                    <!--                        <el-button type="danger" round>危险按钮</el-button>-->
                 </div>
-            </el-card>
-        </el-col>
+            </div>
+        </el-card>
+    </el-col>
+</template>
+        <template v-else>
+            <el-col :span="5" v-for="(o, index) in 4" :key="o" :offset="index > 0 ? 2 : 0" >
+                <el-card :body-style="{ padding: '0px' }" shadow="hover">
+                    <img src="./imgs/555.jpg" class="image">
+                    <div style="padding: 14px;">
+                        <span>好吃的汉堡</span>
+                        <div class="bottom clearfix">
+                            <time class="time">{{ currentDate }}</time>
+                            <el-button type="text" class="button">查看详情</el-button>
+                            <!--                        <el-button type="danger" round>危险按钮</el-button>-->
+                        </div>
+                    </div>
+                </el-card>
+            </el-col>
+        </template>
+
+
     </el-row>
+
 
 
 
@@ -139,14 +159,8 @@
         el:"#app",
 
          mounted(){
-             // 首次加载时,需要调用一次
-             this.screenWidth =  window.innerWidth;
-             this.setSize();
-             // 窗口大小发生改变时,调用一次
-             window.onresize = () =>{
-                 this.screenWidth =  window.innerWidth;
-                 this.setSize();
-             }
+             this.selectAll();
+
 
         //     //this.selectAll();
         //     //this.selectAllTrue();
@@ -154,24 +168,65 @@
          },
 
         methods:{
-            handleClose(done) {
-                this.$confirm('确认关闭？')
-                    .then(_ => {
-                        done();
-                    })
-                    .catch(_ => {});
+
+            //查找所有商品
+            selectAll(){
+                    // var  _this = this;
+                    // axios({
+                    //     method:"get",
+                    //     url:"http://localhost:8080/brand-case/brand/selectAll"
+                    // }).then(function (resp){
+                    //     _this.tableData = resp.data;
+                    //     _this.totalCount = resp.data.totalCount;
+                    //     _this.lossCount = resp.data.totalCount%4;
+                    //     alert("totalCount"+this.totalCount);
+                    //     alert("lossCount"+this.lossCount);
+                    // })
+
+                //var  _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/brand/selectAll2",
+                    data:this.brand2
+                }).then(resp =>{
+                    this.tableData = resp.data.rows;
+                    this.totalCount = resp.data.totalCount;
+                    this.lossCount = resp.data.totalCount%4;
+                    alert("totalCount"+this.totalCount);
+                    alert("lossCount"+this.lossCount);
+
+                })
+
             },
-            //下面是自适应框体大小的设置
-            setSize:function () {
-                // 通过浏览器宽度(图片宽度)实现计算高度
-                this.bannerHeight = 400 / 1920 * this.screenWidth;
-            },
+
+
 
 
         },
 
         data(){
             return{
+
+                //商品数据
+                tableData: [{
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                }, {
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                }, {
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                }],
+                //商品总数量
+                totalCount:19,
+                lossCount:2,
                 //图片卡片
                 currentDate: new Date(),
                 //走马灯图片

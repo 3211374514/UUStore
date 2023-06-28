@@ -22,6 +22,14 @@ public interface BrandMapper {
     List<Brand> selectAll();
 
     /**
+     * mainpage查询所有
+     * @return
+     */
+    @Select("select * from tb_brand")
+    @ResultMap("brandResultMap")
+    List<Brand> selectAll2(Brand brand);
+
+    /**
      * 添加数据
      * @param brand
      */

@@ -23,10 +23,33 @@ public class BrandServiceImpl implements BrandService {
         BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
         //4.调用方法
         List<Brand> brands = mapper.selectAll();
+
+
+
         //释放资源
         sqlSession.close();
 
         return brands;
+    }
+
+    public PageBean<Brand> selectAll2(Brand brand) {
+        //2.获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+        //3.获取BrandMapper
+        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        //4.计算开始索引
+
+        //5.查询当前页数据
+        List<Brand> rows = mapper.selectAll2(brand);
+        //6.查询总记录条数
+        int totalCount = mapper.selectTotalCountByCondition(brand);
+        //7.封装PageBean
+        PageBean<Brand> pageBean = new PageBean<>();
+        pageBean.setRows(rows);
+        pageBean.setTotalCount(totalCount);
+        //8.释放资源
+        sqlSession.close();
+        return pageBean;
     }
 
     @Override
