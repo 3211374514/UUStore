@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/userLoginServlet")
 public class UserLoginServlet extends HttpServlet{
     private CustomerService customerService = new CustomerServiceImpl();
-//http://localhost:8080/brand-case/userLoginServlet?username=1234&password=1234&remember=0
+    //http://localhost:8080/brand-case/userlogin.jsp
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         //1.获取用户名 密码
@@ -36,7 +36,7 @@ public class UserLoginServlet extends HttpServlet{
                 //勾选了记住我
                 //1.创建cookie
                 Cookie c_username = new Cookie("c_username",username);
-                Cookie c_password = new Cookie("p_assword",password);
+                Cookie c_password = new Cookie("c_password",password);
                 //2.设置Cookie存活时间
                 c_username.setMaxAge(60*60*24*7);
                 c_password.setMaxAge(60*60*24*7);

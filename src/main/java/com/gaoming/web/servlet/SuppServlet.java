@@ -68,8 +68,28 @@ public class SuppServlet extends BaseServlet{
 
         //调用add
         suppService.add(supp);
+
         //成功表示
         response.getWriter().write("success");
+    }
+
+    public void selectByCondition(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1. 获取输入流，接收品牌数据json字符串
+        BufferedReader br = request.getReader();
+        String params = br.readLine();
+
+        //将json字符串转为supp对象
+        Supp supp = JSON.parseObject(params, Supp.class);
+
+        System.out.println(supp);
+        //1.调用service查询
+
+        List<Supp> supps = suppService.selectByCondition(supp);
+        System.out.println(supps);
+
+        String jsonString = JSON.toJSONString(supps);
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
     }
 
 
