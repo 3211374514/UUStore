@@ -100,6 +100,7 @@
         </el-carousel-item>
         </el-carousel>
     </template>
+
     <el-divider></el-divider>
 <!--    <el-input-->
 <!--            placeholder="请输入内容"-->
@@ -108,43 +109,27 @@
 <!--            size="big">-->
 <!--    </el-input>-->
 
-<!--    商品信息卡片   Math.ceil(totalCount/4)-->
-    <el-row type="flex" v-for="(s,totalIndex) in Math.ceil(totalCount/4)" :key="s" justify="center" align="middle" style="flex-direction: row;">
-<template v-if="lossCount != 0 && s == Math.ceil(totalCount/4)">
-    <el-col :span="5" v-for="(o, index) in lossCount" :key="o" :offset="index > 0 ? 2 : 0" >
-        <el-card :body-style="{ padding: '0px' }" shadow="hover">
-            <img src="./imgs/555.jpg" class="image">
-            <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                    <time class="time">{{ currentDate }}</time>
-                    <el-button type="text" class="button">查看详情</el-button>
-                    <!--                        <el-button type="danger" round>危险按钮</el-button>-->
-                </div>
-            </div>
-        </el-card>
-    </el-col>
-</template>
-        <template v-else>
-            <el-col :span="5" v-for="(o, index) in 4" :key="o" :offset="index > 0 ? 2 : 0" >
-                <el-card :body-style="{ padding: '0px' }" shadow="hover">
+<!--    商品信息卡片   -->
+    <template>
+    <el-row v-for="(page, index) of pagesDatas" :key="index" type="flex"  justify="center" align="middle" >
+            <el-col :span="5" v-for="(item, innerindex) of page"  :offset="innerindex > 0 ? 2 : 0"  >
+                <el-card  :body-style="{ padding: '0px' }" shadow="hover">
                     <img src="./imgs/555.jpg" class="image">
                     <div style="padding: 14px;">
-                        <span>好吃的汉堡</span>
+                        <span>{{item.brandName}}</span>
+                        <div>
+                            <span>品牌商：{{item.companyName}}</span>
+                        </div>
+                        <span>单价：{{item.price}}元</span>
                         <div class="bottom clearfix">
                             <time class="time">{{ currentDate }}</time>
                             <el-button type="text" class="button">查看详情</el-button>
-                            <!--                        <el-button type="danger" round>危险按钮</el-button>-->
                         </div>
                     </div>
                 </el-card>
             </el-col>
-        </template>
-
-
     </el-row>
-
-
+    </template>
 
 
 </div>
@@ -183,7 +168,7 @@
                     //     alert("lossCount"+this.lossCount);
                     // })
 
-                //var  _this = this;
+                var  _this = this;
                 axios({
                     method:"post",
                     url:"http://localhost:8080/brand-case/brand/selectAll2",
@@ -192,12 +177,32 @@
                     this.tableData = resp.data.rows;
                     this.totalCount = resp.data.totalCount;
                     this.lossCount = resp.data.totalCount%4;
-                    alert("totalCount"+this.totalCount);
-                    alert("lossCount"+this.lossCount);
-
+                    //alert("totalCount"+this.totalCount);
+                    //alert("lossCount"+this.lossCount);
+                    //console.log(this.tableData);
+                    this.pages(this.tableData);
                 })
-
+                //this.pages(this.tableData);
             },
+
+            //将商品tableData从一维数组转为二维数组pagesData
+            pages (tableData) {
+                console.log(tableData);
+                const pagesData = []
+                tableData.forEach((item, index) => {
+                    const page = Math.floor(index / 4)//4代表4条为一行，随意更改
+                    if (!pagesData[page]) {
+                        pagesData[page] = []
+                    }
+                    pagesData[page].push(item)
+                })
+                this.pagesDatas = pagesData;
+                //alert("pagesRun");
+                console.log(pagesData);
+                //console.log(pagesDatas);
+                return pagesData
+            }
+
 
 
 
@@ -207,6 +212,8 @@
         data(){
             return{
 
+                page:0,
+                pagesDatas:[],
                 //商品数据
                 tableData: [{
                     brandName: '华为',
@@ -214,6 +221,26 @@
                     ordered: '100',
                     status: "1"
                 }, {
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                },{
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                },{
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                },{
+                    brandName: '华为',
+                    companyName: '华为科技有限公司',
+                    ordered: '100',
+                    status: "1"
+                },{
                     brandName: '华为',
                     companyName: '华为科技有限公司',
                     ordered: '100',
