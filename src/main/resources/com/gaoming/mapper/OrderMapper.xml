@@ -22,10 +22,10 @@
             </if>
 
             <if test="order.orderPeople != null and order.orderPeople != '' ">
-                and orderPeople = #{order.orderPeople}
+                and orderPeople like #{order.orderPeople}
             </if>
             <if test="order.userName != null and order.userName != '' " >
-                and userName = #{order.userName}
+                and userName like #{order.userName}
             </if>
 
 

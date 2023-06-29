@@ -59,6 +59,25 @@
         <el-menu-item index="3" disabled>消息中心</el-menu-item>
         <el-menu-item index="4"><a href="http://localhost:8080/brand-case/order.html" >订单管理</a></el-menu-item>
     </el-menu>
+    <el-form :inline="true" :model="supp" class="demo-form-inline">
+        <el-form-item label="公司名称">
+            <el-input
+                    placeholder="公司名称"
+                    v-model="supp.companyName"
+                    clearable>
+            </el-input>
+        </el-form-item>
+        <el-form-item label="地址">
+            <el-input
+                    placeholder="地址"
+                    v-model="supp.address"
+                    clearable>
+            </el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="onSubmitOrder"icon="el-icon-search">查询</el-button>
+        </el-form-item>
+    </el-form>
 
     <!--按钮-->
 
@@ -192,6 +211,12 @@
 
             methods:{
 
+
+                onSubmitOrder() {
+                    console.log(this.supp);
+                    this.selectByCondition();
+                },
+
                 //添加
                 addSupp(){
                     //console.log(this.brand);
@@ -225,6 +250,20 @@
 
                 handleChange(val) {
                     console.log(val);
+                },
+
+                //条件查询
+                selectByCondition(){
+                    var  _this = this;
+                    axios({
+                        method:"post",
+                        url:"http://localhost:8080/brand-case/supp/selectByCondition",
+                        data:this.supp
+                    }).then(function (resp){
+                        _this.tableDataSupp = resp.data;
+                        //_this.sumPrice = resp.data.price*resp.data.orderSum;
+                    })
+
                 },
 
                 //查询tb_supp表全部数据

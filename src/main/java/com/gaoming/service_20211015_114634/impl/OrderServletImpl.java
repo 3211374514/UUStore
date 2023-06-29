@@ -85,6 +85,12 @@ public class OrderServletImpl implements OrderService {
         if(s != null && s.length() > 0){
             order.setBrandName("%"+s+"%");
         }
+        if(order.getOrderPeople()!= null&& order.getOrderPeople().length() > 0){
+            order.setOrderPeople("%"+order.getOrderPeople()+"%");
+        }
+        if(order.getUserName()!= null&& order.getUserName().length() > 0){
+            order.setUserName("%"+order.getUserName()+"%");
+        }
 
         List<Order> orders = mapper.selectByCondition(order);
 

@@ -51,6 +51,27 @@ public class SuppServletImpl implements SuppService {
 
     }
 
+    @Override
+    public List<Supp> selectByCondition(Supp supp) {
+        //2.获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+        //3.获取suppMapper
+        SuppMapper mapper = sqlSession.getMapper(SuppMapper.class);
+
+        //修改模糊条件
+        if(supp.getCompanyName()!=null && supp.getCompanyName().length()>0){
+            supp.setCompanyName("%"+supp.getCompanyName()+"%");
+        }
+        if (supp.getAddress()!=null && supp.getAddress().length()>0){
+            supp.setAddress("%"+supp.getAddress()+"%");
+        }
+        //4.调用方法
+        List<Supp> supps = mapper.selectByCondition(supp);
+        //5.释放资源
+        sqlSession.close();
+        return supps;
+    }
+
 
 
 
