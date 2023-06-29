@@ -113,7 +113,9 @@
     <template>
     <el-row v-for="(page, index) of pagesDatas" :key="index" type="flex"  justify="center" align="middle" >
             <el-col :span="5" v-for="(item, innerindex) of page"  :offset="innerindex > 0 ? 2 : 0"  >
-                <el-card  :body-style="{ padding: '0px' }" shadow="hover">
+                <el-card  :body-style="{ padding: '0px' }" shadow="hover"
+                          @click.native="getResearch(item)"
+                >
                     <img src="./imgs/555.jpg" class="image">
                     <div style="padding: 14px;">
                         <span>{{item.brandName}}</span>
@@ -123,13 +125,61 @@
                         <span>单价：{{item.price}}元</span>
                         <div class="bottom clearfix">
                             <time class="time">{{ currentDate }}</time>
-                            <el-button type="text" class="button">查看详情</el-button>
+                            <el-button type="text" @click="dialogVisible=true" class="button">查看详情</el-button>
                         </div>
                     </div>
                 </el-card>
             </el-col>
     </el-row>
     </template>
+
+    <!--修改数据对话框表单-->
+    <el-dialog
+            title="加入购物车"
+            :visible.sync="dialogVisible"
+            width="30%"
+    >
+
+        <el-form ref="form" :model="shopcarData" label-width="80px">
+            <el-form-item label="商品名称">
+                <el-input v-model="shopcarData.brandName" disabled></el-input>
+            </el-form-item>
+
+            <el-form-item label="供应商">
+                <el-input v-model="shopcarData.companyName" disabled></el-input>
+            </el-form-item>
+
+            <el-form-item label="单价">
+                <el-input v-model="shopcarData.price" disabled></el-input>
+            </el-form-item>
+
+            <el-form-item label="购买数量">
+                <el-input-number v-model="shopcarData.shopSum" :min="1" :max="shopcarData.ordered" size="small" :step="1"/>
+            </el-form-item>
+<!--            <el-form-item label="数量">-->
+<!--                <el-input v-model="shopcarData.shopSum"></el-input>-->
+<!--            </el-form-item>-->
+
+<!--            <el-form-item label="备注">-->
+<!--                <el-input type="textarea" v-model="shopcarData.description"></el-input>-->
+<!--            </el-form-item>-->
+
+            <!--            <el-form-item label="状态">-->
+            <!--                <el-switch v-model="brand.status"-->
+            <!--                           active-value="1"-->
+            <!--                           inactive-value="0"-->
+            <!--                ></el-switch>-->
+            <!--            </el-form-item>-->
+
+
+            <el-form-item>
+                <el-button type="primary" @click="addShopToCar">添加</el-button>
+                <el-button @click="dialogVisible = false">取消</el-button>
+
+            </el-form-item>
+        </el-form>
+
+    </el-dialog>
 
 
 </div>
@@ -138,6 +188,12 @@
 <script src="element-ui2/lib/index.js"></script>
 <script src="js/axios-0.18.0.js"></script>
 <link rel="stylesheet" href="element-ui2/lib/theme-chalk/index.css">
+
+<script lang="ts" setup>
+    import { ref } from 'vue'
+
+    const num = ref(5)
+</script>
 
 <script>
     new Vue({
@@ -153,6 +209,10 @@
          },
 
         methods:{
+            getResearch(data) {
+                this.shopcarData = data;
+                console.log(this.shopcarData);
+            },
 
             //查找所有商品
             selectAll(){
@@ -201,9 +261,37 @@
                 console.log(pagesData);
                 //console.log(pagesDatas);
                 return pagesData
-            }
+            },
+//添加到购物车
+            addShopToCar(){
+                //console.log(this.brand);
+
+                var _this = this;
+
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/shopcar/add",
+                    data:_this.shopcarData
+                }).then(function (resp){
+                    if (resp.data == "success"){
+                        //添加成功
+                        //关闭窗口
+                        _this.dialogVisible = false;
+                        //重查
+                        _this.selectAll();
+
+                        _this.$message({
+                            showClose: true,
+                            message: '添加成功！',
+                            type: 'success'
+                        });
 
 
+                    }
+                })
+
+
+            },
 
 
 
@@ -211,6 +299,22 @@
 
         data(){
             return{
+
+                shopcarData:{
+                    carId:'',
+                    // 商品名称
+                    brandName:'',
+                    // 企业名称
+                    companyName:'',
+                    // 价格
+                    price:'',
+                    // 购买数量
+                    shopSum:'1',
+                    // 用户名
+                    customer:'wowowo',
+                },
+
+                dialogVisible:false,
 
                 page:0,
                 pagesDatas:[],
@@ -259,9 +363,9 @@
                 //走马灯图片
                 imgwrap:[
                     {url:"./imgs/reg01.jpg"},
-                    {url:"./imgs/reg01.jpg"},
-                    {url:"./imgs/reg01.jpg"},
-                    {url:"./imgs/reg01.jpg"},
+                    {url:"./imgs/Desert2.jpg"},
+                    {url:"./imgs/reg.jpg"},
+                    {url:"./imgs/reg02.jpg"},
 
                 ],
                 drawer: false,

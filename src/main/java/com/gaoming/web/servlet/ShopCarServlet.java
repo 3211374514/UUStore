@@ -2,10 +2,7 @@ package com.gaoming.web.servlet;
 
 
 import com.alibaba.fastjson.JSON;
-import com.gaoming.pojo.Order;
-import com.gaoming.pojo.ShopCar;
-import com.gaoming.pojo.Supp;
-import com.gaoming.pojo.User;
+import com.gaoming.pojo.*;
 import com.gaoming.service_20211015_114634.ShopCarService;
 import com.gaoming.service_20211015_114634.impl.ShopCarServletImpl;
 
@@ -58,13 +55,13 @@ public class ShopCarServlet extends BaseServlet{
 
         //2.接受session
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        System.out.println(user);
+        Customer customer = (Customer) session.getAttribute("customer");
+        System.out.println(customer);
 
         //2.转为Brand对象
-        Supp supp = JSON.parseObject(params, Supp.class);
+        //Supp supp = JSON.parseObject(params, Supp.class);
         ShopCar shopcar = JSON.parseObject(params, ShopCar.class);
-        shopcar.setCustomer(user.getUsername());
+        shopcar.setCustomer(customer.getUsername());
         System.out.println(shopcar);
         //调用add
         shopcarService.add(shopcar);

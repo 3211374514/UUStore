@@ -4,11 +4,12 @@ public class ShopCar {
     // carid 主键
     private Integer carId;
     // 商品名称
-    private String shopName;
+    private String brandName;
     // 企业名称
     private String companyName;
     // 价格
     private float price;
+
     // 购买数量
     private Integer shopSum;
     // 用户名
@@ -22,14 +23,14 @@ public class ShopCar {
     public void setCarId(Integer carId) {
         this.carId = carId;
     }
-
-    public String getShopName() {
-        return shopName;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
+
 
     public String getCompanyName() {
         return companyName;
@@ -67,7 +68,7 @@ public class ShopCar {
     public String toString() {
         return "ShopCar{" +
                 "carId=" + carId +
-                ", shopName='" + shopName + '\'' +
+                ", shopName='" + brandName + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", price=" + price +
                 ", shopSum='" + shopSum + '\'' +

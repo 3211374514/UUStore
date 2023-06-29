@@ -22,7 +22,7 @@ public interface ShopCarMapper {
      * 添加数据
      * @param supp
      */
-    @Insert("insert into tb_supp values(null,#{shopName},#{companyName},#{price},#{shopSum},#{customer})")
+    @Insert("insert into tb_shopcar values(null,#{brandName},#{companyName},#{price},#{shopSum},#{customer})")
     void add(ShopCar supp);
 
 
