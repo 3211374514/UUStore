@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            padding:0px;
+            margin:0px;
+        }
+        #plane{
+            width: 320px;
+            height: 568px;
+            background: url(img/background.png);
+            position: relative;
+            margin:50px auto 0;
+            cursor: none;
+            overflow: hidden;
+        }
+        #plane span{
+            position: absolute;
+            right:10px;
+            top:5px;
+        }
+    </style>
+</head>
+<body>
+
+<script src="js/vue.js"></script>
+<script src="element-ui2/lib/index.js"></script>
+<script src="element-ui2/lib/index.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="element-ui2/lib/theme-chalk/index.css">
+
+
+<script>
+    new Vue({
+        el:"#app",
+        mounted(){
+            this.selectAll();
+            //this.selectAllTrue();
+            //this.restaurants = this.selectAllTrue();
+        },
+
+    })
+</script>
+
+<div id="app">
+    <!--    导航菜单-->
+    <div class="line"></div>
+    <el-menu
+            :default-active="activeIndex2"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="handleSelect"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b">
+        <el-menu-item index="1">商品管理</el-menu-item>
+        <el-menu-item index="2"><a href="http://localhost:8080/brand-case/supplier.html" >供应商信息</a></el-menu-item>
+        <el-menu-item index="4"><a href="http://localhost:8080/brand-case/order.html" >订单管理</a></el-menu-item>
+        <el-menu-item index="3"><a href="http://localhost:8080/brand-case/relax.html" >休闲一刻</a></el-menu-item>
+    </el-menu>
+
+
+
+
+
+
+<div id="plane">
+    <span>分数:<strong style="font-weight: normal;">0</strong></span>
+</div>
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/plane.js"></script>
+
+
+
+
+
+
+
+<audio src="https://sq-sycdn.kuwo.cn/5e9b6bd4810586eb8f660b38f6eafea0/649d2717/resource/n1/42/89/4285357493.mp3" id="aud" autoplay="autoplay" controls="controls" preload="auto">
+</audio>
+
+<style>
+    audio{
+        display: none;
+    }
+</style>
+
+
+<script type="text/javascript">
+    window.onload = function(){
+        setInterval("toggleSound()",1);
+    }
+
+    function toggleSound() {
+        var music = document.getElementById("aud");
+        if (music.paused) {
+            music.paused=false;
+            music.play();
+        }
+    }
+</script>
+
+</div>
+</body>
+</html>
