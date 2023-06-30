@@ -25,6 +25,13 @@ public interface SuppMapper {
     @Insert("insert into tb_supp values(null,#{companyName},#{phone},#{province},#{city},#{address},#{zip},#{beiZhu})")
     void add(Supp supp);
 
+    /**
+     * 根据条件查找数据
+     * @param supp
+     * @return
+     */
+    List<Supp> selectByCondition(@Param("supp") Supp supp);
+
 
 
 }

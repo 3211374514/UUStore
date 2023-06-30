@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoming.mapper.ShopCarMapper">
+
+    <resultMap id="shopcarResultMap" type="shopcar">
+        <result property="brandName" column="shop_name" />
+        <result property="companyName" column="com_name" />
+        <result property="shopSum" column="shop_sum" />
+        <result property="carId" column="cae_id" />
+
+
+
+    </resultMap>
+
+
+
+
+
+</mapper>

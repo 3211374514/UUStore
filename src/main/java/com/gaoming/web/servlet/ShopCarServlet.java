@@ -2,14 +2,9 @@ package com.gaoming.web.servlet;
 
 
 import com.alibaba.fastjson.JSON;
-import com.gaoming.pojo.Brand;
-import com.gaoming.pojo.Order;
-import com.gaoming.pojo.Supp;
-import com.gaoming.pojo.User;
-import com.gaoming.service_20211015_114634.OrderService;
-import com.gaoming.service_20211015_114634.SuppService;
-import com.gaoming.service_20211015_114634.impl.OrderServletImpl;
-import com.gaoming.service_20211015_114634.impl.SuppServletImpl;
+import com.gaoming.pojo.*;
+import com.gaoming.service_20211015_114634.ShopCarService;
+import com.gaoming.service_20211015_114634.impl.ShopCarServletImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,9 +15,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/supp/*")
-public class SuppServlet extends BaseServlet{
-    private SuppService suppService = new SuppServletImpl();
+@WebServlet("/shopcar/*")
+public class ShopCarServlet extends BaseServlet{
+    private ShopCarService shopcarService = new ShopCarServletImpl();
 
     //
     public void selectAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,14 +33,12 @@ public class SuppServlet extends BaseServlet{
 //        System.out.println(brand);
         //1.调用service查询
 
-        List<Supp> supps = suppService.selectAll();
+        List<ShopCar> shopcars = shopcarService.selectAll();
 
-        System.out.println(supps);
-
-
+        System.out.println(shopcars);
 
         //2.转为JSON
-        String jsonString = JSON.toJSONString(supps);
+        String jsonString = JSON.toJSONString(shopcars);
 
         //3.写数据
         response.setContentType("text/json;charset=utf-8");
@@ -62,34 +55,18 @@ public class SuppServlet extends BaseServlet{
 
         //2.接受session
         HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        System.out.println(customer);
 
         //2.转为Brand对象
-        Supp supp = JSON.parseObject(params, Supp.class);
-
+        //Supp supp = JSON.parseObject(params, Supp.class);
+        ShopCar shopcar = JSON.parseObject(params, ShopCar.class);
+        shopcar.setCustomer(customer.getUsername());
+        System.out.println(shopcar);
         //调用add
-        suppService.add(supp);
-
+        shopcarService.add(shopcar);
         //成功表示
         response.getWriter().write("success");
-    }
-
-    public void selectByCondition(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //1. 获取输入流，接收品牌数据json字符串
-        BufferedReader br = request.getReader();
-        String params = br.readLine();
-
-        //将json字符串转为supp对象
-        Supp supp = JSON.parseObject(params, Supp.class);
-
-        System.out.println(supp);
-        //1.调用service查询
-
-        List<Supp> supps = suppService.selectByCondition(supp);
-        System.out.println(supps);
-
-        String jsonString = JSON.toJSONString(supps);
-        response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write(jsonString);
     }
 
 

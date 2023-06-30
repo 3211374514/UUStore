@@ -53,7 +53,7 @@ public class OrderServlet extends BaseServlet{
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         System.out.println(user);
-        //2.转为Brand对象
+        //2.转为Order对象
         Order order = JSON.parseObject(params, Order.class);
         order.setUserName(user.getUsername());
         System.out.println(order);

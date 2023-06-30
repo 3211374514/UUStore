@@ -14,4 +14,7 @@ public interface SuppService {
 
     void add(Supp supp);
 
+    //根据条件查找数据
+    List<Supp> selectByCondition(Supp supp);
+
 }
