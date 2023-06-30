@@ -44,15 +44,19 @@ public class ShopCarServletImpl implements ShopCarService {
         sqlSession.close();
     }
 
+    @Override
+    public void updateOrdered(ShopCar shopcar) {
+        //2.获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+        //3.获取BrandMapper
+        ShopCarMapper mapper = sqlSession.getMapper(ShopCarMapper.class);
+        //4.调用方法
+        mapper.updateOrdered(shopcar);
+        sqlSession.commit();
 
-
-
-
-
-
-
-
-
+        //5.释放资源
+        sqlSession.close();
+    }
 
 
 }

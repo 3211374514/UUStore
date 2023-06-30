@@ -12,4 +12,6 @@ public interface ShopCarService {
 
     void add(ShopCar supp);
 
+    void updateOrdered(ShopCar shopcar);
+
 }

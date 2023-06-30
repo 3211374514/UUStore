@@ -4,7 +4,9 @@ package com.gaoming.web.servlet;
 import com.alibaba.fastjson.JSON;
 import com.gaoming.pojo.*;
 import com.gaoming.service_20211015_114634.ShopCarService;
+import com.gaoming.service_20211015_114634.OrderService;
 import com.gaoming.service_20211015_114634.impl.ShopCarServletImpl;
+import com.gaoming.service_20211015_114634.impl.OrderServletImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,7 @@ import java.util.List;
 @WebServlet("/shopcar/*")
 public class ShopCarServlet extends BaseServlet{
     private ShopCarService shopcarService = new ShopCarServletImpl();
+
 
     //
     public void selectAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,14 +61,42 @@ public class ShopCarServlet extends BaseServlet{
         Customer customer = (Customer) session.getAttribute("customer");
         System.out.println(customer);
 
-        //2.转为Brand对象
-        //Supp supp = JSON.parseObject(params, Supp.class);
+        //2.转为ShopCar对象
         ShopCar shopcar = JSON.parseObject(params, ShopCar.class);
         shopcar.setCustomer(customer.getUsername());
+
+        //获得库存数
+        Integer ordered = shopcar.getOrdered();
         System.out.println(shopcar);
+        System.out.println("这里这里"+shopcar.getOrdered());
+        //判断库存是否足够
+        if(ordered >= shopcar.getShopSum()){
+            //成功表示
+            shopcarService.add(shopcar);
+            response.getWriter().write("success");
+        }else{
+            response.getWriter().write("erro");
+        }
         //调用add
-        shopcarService.add(shopcar);
-        //成功表示
+//        shopcarService.add(shopcar);
+//        //成功表示
+//        response.getWriter().write("success");
+    }
+
+    public void updateOrdered(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1.接受数据
+        //BufferedReader br = request.getReader();
+        BufferedReader br = request.getReader();
+        String params = br.readLine();
+
+
+        //2.转为ShopCar对象
+        ShopCar shopcar = JSON.parseObject(params, ShopCar.class);
+        System.out.println(shopcar);
+
+        //调用add
+        shopcarService.updateOrdered(shopcar);
+//        //成功表示
         response.getWriter().write("success");
     }
 
