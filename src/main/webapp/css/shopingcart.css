@@ -1,0 +1,104 @@
+/* 公共样式 */
+.clearfix{
+    content: '';
+    display: block;
+    clear: both;
+}
+.red{
+    color: #f30213;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+
+/* 清除默认样式 */
+*{
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+}
+a{
+    text-decoration: none;
+    color: #333;
+}
+input{
+    outline: none;
+}
+
+.wrap{
+    width: 1180px;
+    margin: 0 auto;
+}
+.wrap .location{
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+.cartTable{
+    border: 1px solid #ccc;
+
+}
+.cartTable tr.title{
+    background-color: rgb(241, 243, 244);
+    font-weight: bold;
+}
+.cartTable tbody tr td{
+    /* border: 1px solid rgb(245, 245, 245); */
+    padding: 10px;
+}
+/* 原价 */
+.cartTable tbody tr td .tdl{
+    text-decoration: line-through;
+    color: #999;
+}
+/* 商品数量 */
+.cartTable tr .amount .unum{
+    width: 70px;
+    height: 30px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 16px;
+    float: left;
+}
+/* 数量加减按钮 */
+.cartTable tr .amount a{
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.cartTable tr .amount a.Increase{
+    border-right: none;
+    float: left;
+}
+.cartTable tr .amount a.Reduce{
+    border-left: none;
+    float: left;
+}
+
+.cartTable tr.count .jiesuan .right{
+    text-align: right;
+
+}
+.cartTable tr.count .jiesuan .right p{
+    margin: 5px 0;
+}
+.cartTable tr.count .jiesuan .right .pay{
+    display: block;
+    width: 160px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #f30213;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+}
+
