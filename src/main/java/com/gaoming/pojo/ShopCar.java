@@ -15,6 +15,15 @@ public class ShopCar {
     // 用户名
     private String customer;
 
+    private Integer ordered;
+
+    public Integer getOrdered() {
+        return ordered;
+    }
+
+    public void setOrdered(Integer ordered) {
+        this.ordered = ordered;
+    }
 
     public Integer getCarId() {
         return carId;
