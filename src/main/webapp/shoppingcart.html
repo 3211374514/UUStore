@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车——PC端</title>
+    <link rel="stylesheet" href="css/shopingcart.css">
+</head>
+
+<body>
+<div class="wrap clearfix">
+    <div class="location">当前位置：首页<span>&gt;</span><b class="red">购物车</b></div>
+    <table width="100%" class="cartTable" cellspacing="0" cellpadding="10px">
+        <!-- 首行 -->
+        <tr class="title">
+            <td width="50"><input type="checkbox" name="" class="choose_all"></td>
+            <td width="100" class=""><span style="margin-left: -10px;">全选</span></td>
+            <td width="400">商品信息</td>
+            <td width="150">单价（元）</td>
+            <td width="150">数量</td>
+            <td width="150">金额（元）</td>
+            <td width="80">操作</td>
+        </tr>
+
+        <!-- 商品具体信息 -->
+
+        <tr class="row">
+            <td><input type="checkbox" name="" class="choose"></td>
+            <td class="tal"><a href="#" class="pic"><img src="imgs/111.jpg" alt=""></a></td>
+            <td class="tal"><a href="#">凌美Lamy Safari钢笔/签字笔T52黑色墨水</a></td>
+            <td>
+                <b class="unit">129.00</b>
+            </td>
+            <td>
+                <div class="amount">
+                    <a href="#" class="Increase">+</a>
+                    <input type="text" value="1" class="unum">
+                    <a href="#" class="Reduce">-</a>
+                </div>
+            </td>
+            <td><b class="u-price">129.00</b></td>
+            <td><a href="#" class="btn-del">删除</a></td>
+        </tr>
+
+
+
+        <tr class="count">
+            <td colspan="7">
+                <div class="jiesuan clearfix">
+                    <div class="left fl">
+                        <p><input type="checkbox" name="" class="choose_all"> 全选&nbsp;&nbsp;&nbsp;<a href="#" class="del_check">删除选中商品</a></p>
+                    </div>
+                    <div class="right fr clearfix">
+                        <p>已选商品<span class="red t-number"> 0 </span>件 总价(不含运费、税费)：<span class="red t-price">￥0.00</span></p>
+                        <!-- <div><a href="#" class="btn pay">结算</a></div> -->
+                        <a href="#" class="btn pay fr">结算</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- 引入JS文件 -->
+<script src="./js/shoppingcart.js"></script>
+</body>
+
+</html>
