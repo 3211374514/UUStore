@@ -33,7 +33,7 @@ public class ChangeServlet extends BaseServlet {
             //3. 调用service修改
             if (customerService.update(username,password,repassword)) {
                 response.sendRedirect(contextPath+"/userlogin.jsp");
-            }else {
+            } else {
                 request.setAttribute("reset_msg","用户名或密码错误");
                 response.sendRedirect(contextPath+"/change.jsp");
             }

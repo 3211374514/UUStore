@@ -16,6 +16,17 @@ public class Brand {
     // 价格
     private float price;
 
+    public float getValue() {
+        return value;
+    }
+
+    public void setValue(float value) {
+        this.value = value;
+    }
+
+    //评分
+    private float value;
+
     public void setPrice(float price) {
         this.price = price;
     }
@@ -87,7 +98,7 @@ public class Brand {
                 ", companyName='" + companyName + '\'' +
                 ", ordered=" + ordered +
                 ", description='" + description + '\'' +
-                ", status=" + status + '\'' + "price=" + price +
+                ", status=" + status + '\'' + "price=" + price +'\'' + "value=" + value +
                 '}';
     }
 }

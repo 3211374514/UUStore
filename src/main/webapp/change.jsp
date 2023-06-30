@@ -22,7 +22,7 @@
     <div id="errorMsg">${reset_msg}</div>
     <p>用户名:<input id="username" name="username" value="${cookie.c_username.value}" type="text"></p>
 
-    <p>密码:<input id="password" name="password" value="" type="password"></p>
+    <p>原密码:<input id="password" name="password" value="" type="password"></p>
     <p>重置密码:<input id="repassword" name="repassword" value="" type="password"></p>
     <div id="subDiv">
       <input type="submit" class="button" value="修改" name="change1">

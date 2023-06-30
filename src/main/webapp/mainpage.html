@@ -58,6 +58,7 @@
         .clearfix:after {
             clear: both
         }
+
     </style>
 </head>
 <body>
@@ -72,8 +73,17 @@
             @select="handleSelect"
             background-color="#545c64"
             text-color="#fff"
-            active-text-color="#ffd04b">
-        <el-menu-item index="1">处理中心</el-menu-item>
+            active-text-color="#ffd04b"
+            >
+        <el-menu-item index="0">
+            <div>
+            <el-avatar
+                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            />
+            </div>
+        </el-menu-item>
+        <el-menu-item index="1" >杂货铺主页</el-menu-item>
+
         <el-submenu index="2">
             <template slot="title">我的工作台</template>
             <el-menu-item index="/brand" >选项1</el-menu-item>
@@ -86,7 +96,8 @@
                 <el-menu-item index="2-4-3" ><a href="http://localhost:8080/brand-case/feedback.html" >反馈</a></el-menu-item>
             </el-submenu>
         </el-submenu>
-        <el-menu-item index="3" disabled>消息中心</el-menu-item>
+        <el-menu-item index="3" >通知</el-menu-item>
+        <el-menu-item index="5"><a href="http://localhost:8080/brand-case/relax.html" >休闲一刻</a></el-menu-item>
         <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
     </el-menu>
 
@@ -123,6 +134,15 @@
                             <span>品牌商：{{item.companyName}}</span>
                         </div>
                         <span>单价：{{item.price}}元</span>
+                        <template>
+                            <el-rate
+                                    v-model="item.value"
+                                    disabled
+                                    show-score
+                                    text-color="#ff9900"
+                                    score-template= "{value} points"
+                            />
+                        </template>
                         <div class="bottom clearfix">
                             <time class="time">库存：{{item.ordered}}</time>
                         </div>
@@ -159,22 +179,6 @@
             <el-form-item label="购买数量">
                 <el-input-number v-model="shopcarData.shopSum" :min="1" :max="shopcarData.ordered" size="small" :step="1"/>
             </el-form-item>
-<!--            <el-form-item label="数量">-->
-<!--                <el-input v-model="shopcarData.shopSum"></el-input>-->
-<!--            </el-form-item>-->
-
-<!--            <el-form-item label="备注">-->
-<!--                <el-input type="textarea" v-model="shopcarData.description"></el-input>-->
-<!--            </el-form-item>-->
-
-            <!--            <el-form-item label="状态">-->
-            <!--                <el-switch v-model="brand.status"-->
-            <!--                           active-value="1"-->
-            <!--                           inactive-value="0"-->
-            <!--                ></el-switch>-->
-            <!--            </el-form-item>-->
-
-
             <el-form-item>
                 <el-button type="primary" @click="addShopToCar">添加</el-button>
                 <el-button @click="dialogVisible = false">取消</el-button>
@@ -184,6 +188,11 @@
 
     </el-dialog>
 
+<!--    回到顶部按钮-->
+    <el-backtop :right="100" :bottom="100" /></el-backtop>
+
+
+
 
 </div>
 
@@ -191,6 +200,8 @@
 <script src="element-ui2/lib/index.js"></script>
 <script src="js/axios-0.18.0.js"></script>
 <link rel="stylesheet" href="element-ui2/lib/theme-chalk/index.css">
+
+
 
 <script>
     new Vue({
@@ -306,6 +317,8 @@
 
         data(){
             return{
+
+                value :3.5,
 
                 shopcarData:{
                     carId:'',
