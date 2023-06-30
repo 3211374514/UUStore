@@ -18,7 +18,7 @@ public class mailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getRequestDispatcher("/change.jsp").forward(request,response );
+        request.getRequestDispatcher("/userlogin.jsp").forward(request,response );
 
     }
 
@@ -35,7 +35,7 @@ public class mailServlet extends HttpServlet {
 
     }
     public static void main(String to) throws Exception {
-        String txt="请点击此处继续修改密码\nhttp://localhost:8080/brand-case/user login.jsp";
+        String txt="请点击此处继续修改密码\nhttp://localhost:8080/brand-case/change.jsp";
         String from = "3089802115@qq.com";// 发件人的电子邮件
         String host = "smtp.qq.com";// 邮件服务器，每个邮箱公司不同
         String use = "3089802115@qq.com";// 使用的邮箱账号

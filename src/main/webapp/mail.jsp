@@ -11,7 +11,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>用户登录</title>
+  <title>邮箱验证</title>
   <link href="css/login.css" rel="stylesheet">
 </head>
 
@@ -19,11 +19,11 @@
 
 <div id="loginDiv" style="height: 350px">
   <form action="/brand-case/mailServlet" id="form" method="post">
-    <h1 id="loginMsg">用户登录</h1>
+    <h1 id="loginMsg">请先输入邮箱</h1>
     <div id="errorMsg">${login_msg} ${register_msg}</div>
     <p>邮箱:<input id="username" name="mail" value="${cookie.c_username.value}" type="text"></p>
     <div id="subDiv">
-      <input type="submit" class="button" value="登录">
+      <input type="submit" class="button" value="发送">
 
 
       <%--            <input type="reset" class="button" value="reset">&nbsp;&nbsp;&nbsp;--%
