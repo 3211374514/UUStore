@@ -11,7 +11,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>login</title>
+  <title>reset</title>
   <link href="css/reset.css" rel="stylesheet">
 </head>
 

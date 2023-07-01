@@ -22,7 +22,8 @@ public class feedbackServlet extends BaseServlet{
         FeedbackService feedbackservice = new FeedbackServletImpl();
         feedbackservice.Onsend(contact,information);
         String contextPath = request.getContextPath();
-        response.sendRedirect(contextPath+"/feedback.html");
+        request.setAttribute("feed_msg","反馈成功");
+        response.sendRedirect(contextPath+"/mainpage.html");
 
     }
 }
