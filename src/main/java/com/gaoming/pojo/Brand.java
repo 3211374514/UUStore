@@ -15,6 +15,31 @@ public class Brand {
     private Integer status;
     // 价格
     private float price;
+//图片url
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "id=" + id +
+                ", brandName='" + brandName + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", ordered=" + ordered +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", price=" + price +
+                ", img='" + image + '\'' +
+                ", value=" + value +
+                '}';
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public float getValue() {
         return value;
@@ -90,15 +115,4 @@ public class Brand {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Brand{" +
-                "id=" + id +
-                ", brandName='" + brandName + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", ordered=" + ordered +
-                ", description='" + description + '\'' +
-                ", status=" + status + '\'' + "price=" + price +'\'' + "value=" + value +
-                '}';
-    }
 }

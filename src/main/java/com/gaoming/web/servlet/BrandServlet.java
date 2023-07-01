@@ -207,6 +207,7 @@ public class BrandServlet extends BaseServlet{
         Integer ordered = brand.getOrdered();
         Integer status = brand.getStatus();
         Float price = brand.getPrice();
+        String image = brand.getImage();
 
 
         Brand b = new Brand();
@@ -215,6 +216,7 @@ public class BrandServlet extends BaseServlet{
         b.setCompanyName(companyName);
         b.setDescription(description);
         b.setPrice(price);
+        b.setImage(image);
         //b.setStatus(status);
         if(ordered <= 0){
             b.setOrdered(0);

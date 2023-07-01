@@ -159,7 +159,32 @@
             <el-form-item label="备注">
                 <el-input type="textarea" v-model="brand.description"></el-input>
             </el-form-item>
-
+            <el-form-item label="商品图片">
+                <el-image style="width: 100px;height: 100px" :src="brand.image" fit="contain" alt="暂无图片"></el-image>
+            </el-form-item>
+            <el-form-item label="修改图片"  >
+                <el-upload
+                        ref="upload"
+                        action=""
+                        list-type="picture-card"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove"
+                        :on-change="UploadImage"
+                        :limit="1"
+                        :file-list="fileList"
+                        :auto-upload="false"
+                >
+                    <i class="el-icon-plus"></i>
+                    <template #tip>
+                        <div style="font-size: 12px;color: #919191;">
+                            单次限制上传一张图片
+                        </div>
+                    </template>
+                </el-upload>
+            <el-dialog v-model="dialogVisible2" style="line-height: 0;">
+                <img style="width: 100%;height: 100%"  :src="dialogImageUrl" alt="123" />
+            </el-dialog>
+            </el-form-item>
 <!--            <el-form-item label="状态">-->
 <!--                <el-switch v-model="brand.status"-->
 <!--                           active-value="1"-->
@@ -255,6 +280,7 @@
 <!--                    </el-button>-->
                     <el-button type="primary" icon="el-icon-edit" @click="relogVisible = true" circle></el-button>
                     <el-button type="danger" icon="el-icon-delete" @click="deleteById" circle></el-button>
+<!--                    <el-button type="info" icon="el-icon-view" @click="drawer = true" circle></el-button>-->
 <!--                    <el-button type="info" icon="el-icon-view" circle @click="drawer = true" type="primary" style="margin-left: 16px;"></el-button>-->
 
 
@@ -324,6 +350,31 @@
                 console.log(this.brand);
                 console.log(this.supp);
                 //alert("第三"+this.brand.id);
+            },
+            //上传图片的方法
+            UploadImage(file,filelist) {
+                //console.log(file);
+                let fd = new FormData()
+                fd.append('image', file.raw) //传给后台接收的名字 file
+                axios.post('http://localhost:8080/brand-case/upload/Image', fd, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
+                    //上传成功后返回的数据,
+                    console.log(response.data);
+                    // 将图片地址给到表单.
+                    this.brand.image=response.data
+                })
+
+            },
+            //移除图片功能
+            handleRemove(file, fileList) {
+                console.log(file, fileList)
+
+            },
+            //预览图片功能
+            handlePictureCardPreview(file) {
+                console.log(file.url);
+                this.dialogVisible2 = true
+                this.dialogImageUrl = file.url
+
             },
 
 
@@ -607,6 +658,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
         data() {
             return {
+                fileList:[],
+                dialogImageUrl: '',
 
 
 
@@ -634,6 +687,8 @@
                 currentPage: 1,
                 // 添加数据对话框是否展示的标记
                 dialogVisible: false,
+                //上传图片对话框是否展示标记
+                dialogVisible2: false,
                 //修改数据对话框是否展示标记
                 relogVisible:false,
                 // 品牌模型数据
@@ -644,7 +699,8 @@
                     id:"",
                     ordered:"",
                     description:"",
-                    price:""
+                    price:"",
+                    image:""
                 },
                 // 品牌模型数据2
                 brand2: {

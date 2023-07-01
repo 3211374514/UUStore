@@ -83,7 +83,7 @@ public interface BrandMapper {
      * 修改数据
      * @param brand
      */
-    @Update("update tb_brand set brand_name=#{brandName},company_name=#{companyName},ordered=#{ordered},`description`=#{description},`status`=#{status},`price`=#{price} where id =#{id}")
+    @Update("update tb_brand set brand_name=#{brandName},company_name=#{companyName},ordered=#{ordered},`description`=#{description},`status`=#{status},`price`=#{price},`image`=#{image} where id =#{id}")
     @ResultMap("brandResultMap")
     void update(Brand brand);
 
