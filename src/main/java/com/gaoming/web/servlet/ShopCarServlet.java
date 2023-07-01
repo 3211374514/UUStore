@@ -26,14 +26,6 @@ public class ShopCarServlet extends BaseServlet{
     public void selectAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //处理乱码问题
         request.setCharacterEncoding("utf-8");
-//        //1. 获取输入流，接收品牌数据json字符串
-//        BufferedReader br = request.getReader();
-//        String params = br.readLine();
-//
-//        //将json字符串转为brand对象
-//        Brand brand = JSON.parseObject(params, Brand.class);
-//
-//        System.out.println(brand);
         //1.调用service查询
 
         List<ShopCar> shopcars = shopcarService.selectAll();
@@ -46,6 +38,36 @@ public class ShopCarServlet extends BaseServlet{
         //3.写数据
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
+    }
+
+    public void selectAllByCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //1.接受数据
+
+
+        //2.接受session
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        System.out.println("接收session"+customer);
+        System.out.println("接收username"+customer.getUsername());
+        //2.转为Order对象
+        //Order order = JSON.parseObject(params, Order.class);
+        //Customer customer1 = JSON.parseObject(params, Customer.class);
+//        order.setUserName(customer.getUsername());
+//        System.out.println(order);
+
+
+
+        //调用deleteByName
+        List<ShopCar> shopCars = shopcarService.selectAllByCustomer(customer.getUsername());
+        //System.out.println(shopCars);
+        //2.转为JSON
+        String jsonString = JSON.toJSONString(shopCars);
+
+        //3.写数据
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+
     }
 
 

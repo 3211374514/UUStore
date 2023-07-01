@@ -12,8 +12,14 @@ public interface ShopCarMapper {
      * @return
      */
     @Select("SELECT * FROM tb_brand,tb_shopcar WHERE tb_brand.brand_name = tb_shopcar.shop_name;")
+    //@Select("SELECT * FROM tb_shopcar WHERE customer = 444;")
     @ResultMap("shopcarResultMap")
     List<ShopCar> selectAll();
+
+    //@Select("SELECT * FROM tb_brand,tb_shopcar WHERE tb_brand.brand_name = tb_shopcar.shop_name;")
+    @Select("SELECT * FROM tb_shopcar WHERE customer = #{customer};")
+    @ResultMap("shopcarResultMap")
+    List<ShopCar> selectAllByCustomer(String customer);
 
 
     /**

@@ -18,4 +18,6 @@ public interface ShopCarService {
 
     void deleteByName(String brandName);
 
+    List<ShopCar> selectAllByCustomer(String customer);
+
 }
