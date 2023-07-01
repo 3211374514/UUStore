@@ -12,6 +12,10 @@ public interface ShopCarService {
 
     void add(ShopCar supp);
 
+    void add2(ShopCar supp);
+
     void updateOrdered(ShopCar shopcar);
+
+    void deleteByName(String brandName);
 
 }

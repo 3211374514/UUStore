@@ -1,5 +1,6 @@
 package com.gaoming.service_20211015_114634.impl;
 
+import com.gaoming.mapper.OrderMapper;
 import com.gaoming.mapper.ShopCarMapper;
 import com.gaoming.pojo.ShopCar;
 import com.gaoming.service_20211015_114634.ShopCarService;
@@ -45,6 +46,20 @@ public class ShopCarServletImpl implements ShopCarService {
     }
 
     @Override
+    public void add2(ShopCar shopcar) {
+        //2.获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+        //3.获取BrandMapper
+        ShopCarMapper mapper = sqlSession.getMapper(ShopCarMapper.class);
+        //4.调用方法
+        mapper.add2(shopcar);
+        sqlSession.commit();
+
+        //5.释放资源
+        sqlSession.close();
+    }
+
+    @Override
     public void updateOrdered(ShopCar shopcar) {
         //2.获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
@@ -52,6 +67,20 @@ public class ShopCarServletImpl implements ShopCarService {
         ShopCarMapper mapper = sqlSession.getMapper(ShopCarMapper.class);
         //4.调用方法
         mapper.updateOrdered(shopcar);
+        sqlSession.commit();
+
+        //5.释放资源
+        sqlSession.close();
+    }
+
+    @Override
+    public void deleteByName(String brandName) {
+        //2.获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+        //3.获取BrandMapper
+        ShopCarMapper mapper = sqlSession.getMapper(ShopCarMapper.class);
+        //4.调用方法
+        mapper.deleteByName(brandName);
         sqlSession.commit();
 
         //5.释放资源

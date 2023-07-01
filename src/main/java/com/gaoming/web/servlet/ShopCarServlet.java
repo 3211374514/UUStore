@@ -83,6 +83,27 @@ public class ShopCarServlet extends BaseServlet{
 //        response.getWriter().write("success");
     }
 
+    public void add2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1.接受数据
+        //BufferedReader br = request.getReader();
+        BufferedReader br = request.getReader();
+        String params = br.readLine();
+
+        //2.接受session
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        System.out.println(customer);
+
+        //2.转为ShopCar对象
+        ShopCar shopcar = JSON.parseObject(params, ShopCar.class);
+        //shopcar.setCustomer(customer.getUsername());
+            //成功表示
+            shopcarService.add2(shopcar);
+            response.getWriter().write("success");
+
+
+    }
+
     public void updateOrdered(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1.接受数据
         //BufferedReader br = request.getReader();
@@ -97,6 +118,27 @@ public class ShopCarServlet extends BaseServlet{
         //调用add
         shopcarService.updateOrdered(shopcar);
 //        //成功表示
+        response.getWriter().write("success");
+    }
+
+    /**
+     * 删除数据
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void deleteByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1.接受数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();
+
+        //2.转为shopcar对象
+        ShopCar shopcar = JSON.parseObject(params, ShopCar.class);
+
+        //调用deleteByName
+        shopcarService.deleteByName(shopcar.getBrandName());
+        //成功表示
         response.getWriter().write("success");
     }
 

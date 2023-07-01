@@ -9,6 +9,8 @@
         <result property="companyName" column="com_name" />
         <result property="shopSum" column="shop_sum" />
         <result property="carId" column="cae_id" />
+        <result property="beizhu" column="beizhu" />
+        <result property="shopTime" column="shop_time" />
 
 
 

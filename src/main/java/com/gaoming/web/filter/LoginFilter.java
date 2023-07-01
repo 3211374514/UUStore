@@ -13,7 +13,7 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         //判断资源是否和登录注册相关
-        String[] urls = {"/login.jsp","/imgs/","/css/","/userLoginServlet","/loginServlet","/register.jsp","/registerServlet","/checkCodeServlet"};
+        String[] urls = {"userlogin.jsp","/login.jsp","/imgs/","/css/","/userLoginServlet","/loginServlet","/register.jsp","/registerServlet","/checkCodeServlet"};
         //判断
         String url = req.getRequestURL().toString();
 
@@ -29,9 +29,10 @@ public class LoginFilter implements Filter {
         //1.判断session中是否有user
         HttpSession session = req.getSession();
         Object user = session.getAttribute("user");
+        Object customer = session.getAttribute("customer");
 
         //2.判断user是否为null
-        if(user != null){
+        if(user != null || customer != null){
             //登陆过了，放行
             //放行
             chain.doFilter(request, response);

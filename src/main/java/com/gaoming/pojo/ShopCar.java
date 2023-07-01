@@ -14,8 +14,44 @@ public class ShopCar {
     private Integer shopSum;
     // 用户名
     private String customer;
-
+    //库存
     private Integer ordered;
+
+    //备注
+    private String beizhu;
+
+    //订单时间
+    private String shopTime;
+    //地址
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getShopTime() {
+        return shopTime;
+    }
+
+    public void setShopTime(String shopTime) {
+        this.shopTime = shopTime;
+    }
+
+
+
+    public String getBeizhu() {
+        return beizhu;
+    }
+
+    public void setBeizhu(String beizhu) {
+        this.beizhu = beizhu;
+    }
+
+
 
     public Integer getOrdered() {
         return ordered;
@@ -81,7 +117,10 @@ public class ShopCar {
                 ", companyName='" + companyName + '\'' +
                 ", price=" + price +
                 ", shopSum='" + shopSum + '\'' +
-                ", customer=" + customer  +
+                ", customer=" + customer  +'\'' +
+                ", beizhu='" + beizhu + '\'' +
+                ", 时间='" + shopTime + '\'' +
+                ", 地址='" + address + '\'' +
                 '}';
     }
 }

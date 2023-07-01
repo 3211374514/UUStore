@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+
+    <style>
+        .demo-table-expand {
+            font-size: 0;
+        }
+        .demo-table-expand label {
+            width: 100px;
+            color: #bf99b2;
+        }
+        .demo-table-expand .el-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+        }
+
+
+
+    </style>
+<!--    <link href="css/brand.css" rel="stylesheet">-->
+    <link href="css/order.css" rel="stylesheet">
+</head>
+
+
+<body >
+
+<div id="app">
+
+    <!--    导航菜单-->
+    <div class="line"></div>
+    <el-menu
+            :default-active="activeIndex2"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="handleSelect"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b"
+    >
+        <el-submenu index="2">
+            <template slot="title"><el-avatar
+                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            /></template>
+            <el-menu-item index="/brand"><a href="http://localhost:8080/brand-case/shopcart.html" >我的购物车</a></el-menu-item>
+            <el-menu-item index="2-3" ><a href="http://localhost:8080/brand-case/feedback.html" >反馈</a></el-menu-item>
+        </el-submenu>
+        <el-menu-item index="1" ><a href="http://localhost:8080/brand-case/mainpage.html" >杂货铺主页</a></el-menu-item>
+        <el-menu-item index="3"> <a href="http://localhost:8080/brand-case/supplier.html" >查看供应商信息</a></el-menu-item>
+        <el-menu-item index="5"><a href="http://localhost:8080/brand-case/relax.html" >休闲一刻</a></el-menu-item>
+    </el-menu>
+
+
+
+    <template>
+        <el-table
+                :data="shopcarDatas"
+                style="width: 100%"
+                @current-change="handleCurrentChangeRow"
+                @selection-change="handleSelectionChange">
+            <el-table-column
+                    label="购买日期"
+                    width="180">
+                <template slot-scope="scope">
+                    <i class="el-icon-time"></i>
+                    <span style="margin-left: 10px">{{ scope.row.shopTime }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="商品名称"
+                    width="180">
+                <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                        <p>商品名称: {{ scope.row.brandName }}</p>
+                        <p>品牌商: {{ scope.row.companyName }}</p>
+                        <div slot="reference" class="name-wrapper">
+                            <el-tag size="medium">{{ scope.row.brandName }}</el-tag>
+                        </div>
+                    </el-popover>
+                </template>
+            </el-table-column>
+
+            <el-table-column
+                    label="商品单价（元）"
+                    width="180">
+                <template slot-scope="scope">
+                    <i class="el-icon-coin"></i>
+                    <span style="margin-left: 10px">{{ scope.row.price }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="购买个数"
+                    width="180">
+                <template slot-scope="scope">
+                    <i class="el-icon-shopping-cart-full"></i>
+                    <span style="margin-left: 10px">{{ scope.row.shopSum }}</span>
+                </template>
+            </el-table-column>
+
+            <el-table-column
+                    label="总金额"
+                    width="180"
+                    header-cell-style="color:#BF99A3">
+                <template slot-scope="scope">
+                    <i class="el-icon-wallet"></i>
+                    <span style="margin-left: 10px">{{ scope.row.price*scope.row.shopSum }}元</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="订单备注"
+                    width="180">
+                <template slot-scope="scope">
+                    <i class="el-icon-bell"></i>
+                    <span style="margin-left: 10px">{{ scope.row.beizhu }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="地址"
+                    width="180">
+                <template slot-scope="scope">
+                    <i class="el-icon-map-location"></i>
+                    <span style="margin-left: 10px">{{ scope.row.address }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column align="right" label="操作">
+                <template #header>
+                    <el-input v-model="search" size="small" placeholder="Type to search" />
+                </template>
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="dialogVisible=true">编辑</el-button>
+                    <el-button
+                            size="mini"
+                            type="danger"
+                            @click="deleteByName1">删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </template>
+
+    <!--修改数据对话框表单-->
+    <el-dialog
+            title="加入购物车"
+            :visible.sync="dialogVisible"
+            width="30%"
+    >
+
+        <el-form ref="form" :model="shopcar" label-width="80px">
+            <el-form-item label="商品名称">
+                <el-input v-model="shopcar.brandName" disabled></el-input>
+            </el-form-item>
+
+            <el-form-item label="供应商">
+                <el-input v-model="shopcar.companyName" disabled></el-input>
+            </el-form-item>
+
+            <el-form-item label="单价">
+                <el-input v-model="shopcar.price" disabled></el-input>
+            </el-form-item>
+
+            <el-form-item label="购买数量">
+                <el-input v-model="shopcar.shopSum" disabled></el-input>
+<!--                <el-input-number v-model="shopcar.shopSum" :lowest="-shopcar.shopSum" :max="0" size="small" :step="1"/>-->
+            </el-form-item>
+            <el-form-item label="备注">
+                <el-input v-model="shopcar.beizhu" ></el-input>
+            </el-form-item>
+            <el-form-item label="地址">
+                <el-input v-model="shopcar.address" ></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="addShopToCar">确认修改</el-button>
+                <el-button @click="dialogVisible = false">取消</el-button>
+
+            </el-form-item>
+        </el-form>
+
+    </el-dialog>
+
+
+
+
+
+
+</div>
+
+<script src="js/vue.js"></script>
+<script src="element-ui2/lib/index.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="element-ui2/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el:"#app",
+
+        mounted(){
+
+            this.selectAll();
+            //this.selectAllTrue();
+            //this.restaurants = this.selectAllTrue();
+        },
+
+        methods:{
+            handleEdit(index, row) {
+                console.log(index, row);
+            },
+            handleDelete(index, row) {
+                console.log(index, row);
+            },
+
+            selectAll(){
+                var  _this = this;
+                axios({
+                    method:"get",
+                    url:"http://localhost:8080/brand-case/shopcar/selectAll"
+                }).then(function (resp){
+                    _this.shopcarDatas = resp.data;
+                    //_this.sumPrice = resp.data.price*resp.data.orderSum;
+
+                })
+                console.log(_this.shopcarDatas);
+            },
+
+            deleteByName1(){
+                var _this = this;
+                this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    _this.deleteByName2()
+
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+
+            },
+            deleteByName2(){
+                var _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/shopcar/deleteByName",
+                    data:_this.shopcar
+                }).then(function (resp){
+                    if (resp.data == "success"){
+
+                        _this.selectAll();
+
+                        _this.$message({
+                            showClose: true,
+                            message: '删除成功！',
+                            type: 'success'
+                        });
+
+
+                    }
+                })
+            },
+
+            //选中获得这一行的数据
+            handleCurrentChangeRow(val){
+                this.currentRow = val;
+                //alert("第一"+this.currentRow.id);
+                this.shopcar = this.currentRow;
+                alert(this.shopcar.brandName);
+                ///alert("第三"+this.brand.id);
+            },
+
+            addShopToCar(){
+                //console.log(this.brand);
+
+                var _this = this;
+
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/brand-case/shopcar/add2",
+                    data:_this.shopcar
+                }).then(function (resp){
+                    if (resp.data == "success"){
+                        //添加成功
+
+                        _this.$message({
+                            showClose: true,
+                            message: '修改成功！',
+                            type: 'success'
+                        });
+                        _this.dialogVisible=false
+                    }
+                    else{
+                        _this.$message({
+                            showClose: true,
+                            message: '添加失败！'+_this.shopcarData.brandName+'库存不足！',
+                            type: 'error'
+                        });
+                    }
+                })
+
+
+            },
+
+
+        },
+
+
+        data(){
+            return{
+
+                dialogVisible:false,
+
+                shopcar:{
+                    // 商品名称
+                    brandName:'',
+                    // 企业名称
+                    companyName:'',
+                    // 价格
+                    price:'',
+                    // 购买数量
+                    shopSum:'1',
+                    // 用户名
+                    customer:'wowowo',
+                },
+
+                shopcarDatas:[{
+                    // 商品名称
+                    brandName:'',
+                    // 企业名称
+                    companyName:'',
+                    // 价格
+                    price:'',
+                    // 购买数量
+                    shopSum:'1',
+                    // 用户名
+                    customer:'wowowo',
+                },
+                    {
+                        // 商品名称
+                        brandName:'',
+                        // 企业名称
+                        companyName:'',
+                        // 价格
+                        price:'',
+                        // 购买数量
+                        shopSum:'1',
+                        // 用户名
+                        customer:'wowowo',
+
+                    }
+                ],
+
+                tableData: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1517 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1519 弄'
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1516 弄'
+                }]
+
+
+
+
+            }
+        }
+
+
+
+
+
+
+    })
+
+
+</script>
+
+</body>
+</html>
