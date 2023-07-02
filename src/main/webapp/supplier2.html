@@ -59,12 +59,12 @@
             <template slot="title"><el-avatar
                     src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
             /></template>
-            <el-menu-item index="/brand"><a href="http://localhost:8080/brand-case/shopcart.html" >我的购物车</a></el-menu-item>
-            <el-menu-item index="2-3" ><a href="http://localhost:8080/brand-case/feedback.html" >反馈</a></el-menu-item>
+            <el-menu-item index="/brand"><a href="http://123.249.21.61:8081/brand-case/shopcart.html" >我的购物车</a></el-menu-item>
+            <el-menu-item index="2-3" ><a href="http://123.249.21.61:8081/brand-case/feedback.html" >反馈</a></el-menu-item>
         </el-submenu>
-        <el-menu-item index="1" ><a href="http://localhost:8080/brand-case/mainpage.html" >杂货铺主页</a></el-menu-item>
-        <el-menu-item index="3"> <a href="http://localhost:8080/brand-case/supplier2.html" >查看供应商信息</a></el-menu-item>
-        <el-menu-item index="5"><a href="http://localhost:8080/brand-case/relax.html" >休闲一刻</a></el-menu-item>
+        <el-menu-item index="1" ><a href="http://123.249.21.61:8081/brand-case/mainpage.html" >杂货铺主页</a></el-menu-item>
+        <el-menu-item index="3"> <a href="http://123.249.21.61:8081/brand-case/supplier2.html" >查看供应商信息</a></el-menu-item>
+        <el-menu-item index="5"><a href="http://123.249.21.61:8081/brand-case/relax.html" >休闲一刻</a></el-menu-item>
     </el-menu>
 
 
@@ -90,11 +90,7 @@
 
     <!--按钮-->
 
-    <el-row>
 
-        <el-button type="primary" plain @click="dialogVisible = true" icon="el-icon-circle-plus">新增供应商</el-button>
-
-    </el-row>
 
     <!--添加数据表单弹窗-->
     <el-dialog
@@ -234,7 +230,7 @@
 
                     axios({
                         method:"post",
-                        url:"http://localhost:8080/brand-case/supp/add",
+                        url:"http://123.249.21.61:8081/brand-case/supp/add",
                         data:_this.supp
                     }).then(function (resp){
                         if (resp.data == "success"){
@@ -266,7 +262,7 @@
                     var  _this = this;
                     axios({
                         method:"post",
-                        url:"http://localhost:8080/brand-case/supp/selectByCondition",
+                        url:"http://123.249.21.61:8081/brand-case/supp/selectByCondition",
                         data:this.supp
                     }).then(function (resp){
                         _this.tableDataSupp = resp.data;
@@ -280,7 +276,7 @@
                     var  _this = this;
                     axios({
                         method:"get",
-                        url:"http://localhost:8080/brand-case/supp/selectAll"
+                        url:"http://123.249.21.61:8081/brand-case/supp/selectAll"
                     }).then(function (resp){
                         _this.tableDataSupp = resp.data;
                         //_this.sumPrice = resp.data.price*resp.data.orderSum;

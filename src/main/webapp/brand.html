@@ -32,9 +32,9 @@
             text-color="#fff"
             active-text-color="#ffd04b">
         <el-menu-item index="1">商品管理</el-menu-item>
-        <el-menu-item index="2"><a href="http://localhost:8080/brand-case/supplier.html" >供应商信息</a></el-menu-item>
-        <el-menu-item index="4"><a href="http://localhost:8080/brand-case/order.html" >订单管理</a></el-menu-item>
-        <el-menu-item index="3"><a href="http://localhost:8080/brand-case/relax.html" >休闲一刻</a></el-menu-item>
+        <el-menu-item index="2"><a href="http://123.249.21.61:8081/brand-case/supplier.html" >供应商信息</a></el-menu-item>
+        <el-menu-item index="4"><a href="http://123.249.21.61:8081/brand-case/order.html" >订单管理</a></el-menu-item>
+        <el-menu-item index="3"><a href="http://123.249.21.61:8081/brand-case/relax.html" >休闲一刻</a></el-menu-item>
     </el-menu>
 
 
@@ -356,7 +356,7 @@
                 //console.log(file);
                 let fd = new FormData()
                 fd.append('image', file.raw) //传给后台接收的名字 file
-                axios.post('http://localhost:8080/brand-case/upload/Image', fd, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
+                axios.post('http://123.249.21.61:8081/brand-case/upload/Image', fd, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
                     //上传成功后返回的数据,
                     console.log(response.data);
                     // 将图片地址给到表单.
@@ -383,7 +383,7 @@
                 var _this = this;
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/brand/selectByBrandName",
+                    url:"http://123.249.21.61:8081/brand-case/brand/selectByBrandName",
                     data:_this.brandname
                 }).then(function (resp){
                     if (resp.data == "success"){
@@ -426,7 +426,7 @@
                 var  _this = this;
                     axios({
                         method:"get",
-                        url:"http://localhost:8080/brand-case/brand/selectAll"
+                        url:"http://123.249.21.61:8081/brand-case/brand/selectAll"
                     }).then(function (resp){
                         _this.tableData2 = resp.data;
                     })
@@ -441,7 +441,7 @@
             //     var  _this = this;
             //     axios({
             //         method:"get",
-            //         url:"http://localhost:8080/brand-case/brand/selectAll"
+            //         url:"http://123.249.21.61:8081/brand-case/brand/selectAll"
             //     }).then(function (resp){
             //         _this.tableData = resp.data;
             //     })
@@ -449,7 +449,7 @@
                 var  _this = this;
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/brand/selectByPageAndCondition?currentPage="+this.currentPage+"&pageSize="+this.pageSize,
+                    url:"http://123.249.21.61:8081/brand-case/brand/selectByPageAndCondition?currentPage="+this.currentPage+"&pageSize="+this.pageSize,
                     data:this.brand2
                 }).then(resp =>{
                     this.tableData = resp.data.rows;
@@ -484,7 +484,7 @@
                 var _this = this;
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/brand/add",
+                    url:"http://123.249.21.61:8081/brand-case/brand/add",
                     data:_this.brand
                 }).then(function (resp){
                     if (resp.data == "success"){
@@ -512,7 +512,7 @@
                 var _this = this;
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/brand/update",
+                    url:"http://123.249.21.61:8081/brand-case/brand/update",
                     data:_this.brand
                 }).then(function (resp){
                     if (resp.data == "success"){
@@ -569,7 +569,7 @@
                     var _this = this;
                     axios({
                         method:"post",
-                        url:"http://localhost:8080/brand-case/brand/deleteByIds",
+                        url:"http://123.249.21.61:8081/brand-case/brand/deleteByIds",
                         data:_this.selectedIds
                     }).then(function (resp){
                         if (resp.data == "success"){
@@ -617,7 +617,7 @@
                     var _this = this;
                     axios({
                         method:"post",
-                        url:"http://localhost:8080/brand-case/brand/deleteByIds",
+                        url:"http://123.249.21.61:8081/brand-case/brand/deleteByIds",
                         data:_this.selectedIds
                     }).then(function (resp){
                         if (resp.data == "success"){

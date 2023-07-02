@@ -81,12 +81,12 @@
             <template slot="title"><el-avatar
                     src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
             /></template>
-            <el-menu-item index="/brand"><a href="http://localhost:8080/brand-case/shopcart.html" >我的购物车</a></el-menu-item>
-            <el-menu-item index="2-3" ><a href="http://localhost:8080/brand-case/feedback.html" >反馈</a></el-menu-item>
+            <el-menu-item index="/brand"><a href="http://123.249.21.61:8081/brand-case/shopcart.html" >我的购物车</a></el-menu-item>
+            <el-menu-item index="2-3" ><a href="http://123.249.21.61:8081/brand-case/feedback.html" >反馈</a></el-menu-item>
         </el-submenu>
-        <el-menu-item index="1" ><a href="http://localhost:8080/brand-case/mainpage.html" >杂货铺主页</a></el-menu-item>
-        <el-menu-item index="3"> <a href="http://localhost:8080/brand-case/supplier2.html" >查看供应商信息</a></el-menu-item>
-        <el-menu-item index="5"><a href="http://localhost:8080/brand-case/relax.html" >休闲一刻</a></el-menu-item>
+        <el-menu-item index="1" ><a href="http://123.249.21.61:8081/brand-case/mainpage.html" >杂货铺主页</a></el-menu-item>
+        <el-menu-item index="3"> <a href="http://123.249.21.61:8081/brand-case/supplier2.html" >查看供应商信息</a></el-menu-item>
+        <el-menu-item index="5"><a href="http://123.249.21.61:8081/brand-case/relax.html" >休闲一刻</a></el-menu-item>
     </el-menu>
 
 
@@ -115,7 +115,8 @@
                 <el-card  :body-style="{ padding: '0px' }" shadow="hover"
                           @click.native="getResearch(item)"
                 >
-                    <img src="./imgs/555.jpg" class="image">
+<!--                    <img src="item.image" class="image">-->
+                    <el-image style="width: 200px;height: 300px" :src="item.image" fit="contain" alt="暂无图片"></el-image>
                     <div style="padding: 14px;">
                         <span>{{item.brandName}}</span>
                         <div>
@@ -221,7 +222,7 @@
                 var  _this = this;
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/brand/selectAll2",
+                    url:"http://123.249.21.61:8081/brand-case/brand/selectAll2",
                     data:this.brand2
                 }).then(resp =>{
                     this.tableData = resp.data.rows;
@@ -260,7 +261,7 @@
 
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/shopcar/add",
+                    url:"http://123.249.21.61:8081/brand-case/shopcar/add",
                     data:_this.shopcarData
                 }).then(function (resp){
                     if (resp.data == "success"){
@@ -287,7 +288,7 @@
 
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/shopcar/updateOrdered",
+                    url:"http://123.249.21.61:8081/brand-case/shopcar/updateOrdered",
                     data:_this.shopcarData
                 }).then(function (resp){
                     if (resp.data == "success"){
@@ -343,37 +344,51 @@
                     brandName: '华为',
                     companyName: '华为科技有限公司',
                     ordered: '100',
-                    status: "1"
+                    status: "1",
+                    //照片url
+                    image:''
                 }, {
                     brandName: '华为',
                     companyName: '华为科技有限公司',
                     ordered: '100',
-                    status: "1"
+                    status: "1",
+                    //照片url
+                    image:''
                 },{
                     brandName: '华为',
                     companyName: '华为科技有限公司',
                     ordered: '100',
-                    status: "1"
+                    status: "1",
+                    //照片url
+                    image:''
                 },{
                     brandName: '华为',
                     companyName: '华为科技有限公司',
                     ordered: '100',
-                    status: "1"
+                    status: "1",
+                    //照片url
+                    image:''
                 },{
                     brandName: '华为',
                     companyName: '华为科技有限公司',
                     ordered: '100',
-                    status: "1"
+                    status: "1",
+                    //照片url
+                    image:''
                 },{
                     brandName: '华为',
                     companyName: '华为科技有限公司',
                     ordered: '100',
-                    status: "1"
+                    status: "1",
+                    //照片url
+                    image:''
                 }, {
                     brandName: '华为',
                     companyName: '华为科技有限公司',
                     ordered: '100',
-                    status: "1"
+                    status: "1",
+                    //照片url
+                    image:''
                 }],
                 //商品总数量
                 totalCount:19,
