@@ -45,12 +45,12 @@
             <template slot="title"><el-avatar
                     src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
             /></template>
-            <el-menu-item index="/brand"><a href="http://localhost:8080/brand-case/shopcart.html" >我的购物车</a></el-menu-item>
-            <el-menu-item index="2-3" ><a href="http://localhost:8080/brand-case/feedback.html" >反馈</a></el-menu-item>
+            <el-menu-item index="/brand"><a href="http://123.249.21.61:8081/brand-case/shopcart.html" >我的购物车</a></el-menu-item>
+            <el-menu-item index="2-3" ><a href="http://123.249.21.61:8081/brand-case/feedback.html" >反馈</a></el-menu-item>
         </el-submenu>
-        <el-menu-item index="1" ><a href="http://localhost:8080/brand-case/mainpage.html" >杂货铺主页</a></el-menu-item>
-        <el-menu-item index="3"> <a href="http://localhost:8080/brand-case/supplier2.html" >查看供应商信息</a></el-menu-item>
-        <el-menu-item index="5"><a href="http://localhost:8080/brand-case/relax.html" >休闲一刻</a></el-menu-item>
+        <el-menu-item index="1" ><a href="http://123.249.21.61:8081/brand-case/mainpage.html" >杂货铺主页</a></el-menu-item>
+        <el-menu-item index="3"> <a href="http://123.249.21.61:8081/brand-case/supplier2.html" >查看供应商信息</a></el-menu-item>
+        <el-menu-item index="5"><a href="http://123.249.21.61:8081/brand-case/relax.html" >休闲一刻</a></el-menu-item>
     </el-menu>
 
 
@@ -216,7 +216,7 @@
                 var  _this = this;
                 axios({
                     method:"get",
-                    url:"http://localhost:8080/brand-case/shopcar/selectAllByCustomer"
+                    url:"http://123.249.21.61:8081/brand-case/shopcar/selectAllByCustomer"
                 }).then(function (resp){
                     _this.shopcarDatas = resp.data;
                     //_this.sumPrice = resp.data.price*resp.data.orderSum;
@@ -247,7 +247,7 @@
                 var _this = this;
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/shopcar/deleteByName",
+                    url:"http://123.249.21.61:8081/brand-case/shopcar/deleteByName",
                     data:_this.shopcar
                 }).then(function (resp){
                     if (resp.data == "success"){
@@ -281,7 +281,7 @@
 
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/brand-case/shopcar/add2",
+                    url:"http://123.249.21.61:8081/brand-case/shopcar/add2",
                     data:_this.shopcar
                 }).then(function (resp){
                     if (resp.data == "success"){

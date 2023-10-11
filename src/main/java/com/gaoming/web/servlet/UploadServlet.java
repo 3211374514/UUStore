@@ -15,8 +15,9 @@ import java.util.UUID;
 public class UploadServlet extends BaseServlet{
 
     private static final long serialVersionUID = 1L;
-    //定义文件上传的目录
-    private static final String UPLOAD_DIR = "E:\\keyboardworkweb\\-\\src\\main\\webapp\\imgs\\imageup";//本地路径服务器创建后还需要改成服务器路径
+    //定义文件上传的目录linux系统路径
+    private static final String UPLOAD_DIR = "/www/server/tomcat7/webapps/brand-case/imgs/imageup";//本地路径服务器创建后还需要改成服务器路径
+//    private static final String UPLOAD_DIR = "E:\\keyboardworkweb\\-\\src\\main\\webapp\\imgs\\imageup";//本地路径服务器创建后还需要改成服务器路径
     private  static final  String UPLOAD_DIR2 = "E:\\keyboardworkweb\\-\\src\\main\\webapp\\imgs";//本地路径服务器创建后还需要改成服务器路径
     /**
      * 上传图片
@@ -52,7 +53,7 @@ public class UploadServlet extends BaseServlet{
             File newName = new File( UPLOAD_DIR+File.separator+datePath+newFilename);
             oldName.renameTo(newName);
             //上传到哪个路径下
-            String targetPath = "http://localhost:8080/brand-case/imgs/imageup" +"/"+ datePath + newFilename;
+            String targetPath = "http://123.249.21.61:8081//brand-case/imgs/imageup" +"/"+ datePath + newFilename;
             System.out.println(oldName);
             System.out.println(newName);
             System.out.println(targetPath);
