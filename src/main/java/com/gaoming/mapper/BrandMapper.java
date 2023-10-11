@@ -33,7 +33,7 @@ public interface BrandMapper {
      * 添加数据
      * @param brand
      */
-    @Insert("insert into tb_brand values(null,#{brandName},#{companyName},#{ordered},#{description},#{status},#{price})")
+    @Insert("insert into tb_brand values(null,#{brandName},#{companyName},#{ordered},#{description},#{status},#{price},4,null)")
     void add(Brand brand);
 
     /**
